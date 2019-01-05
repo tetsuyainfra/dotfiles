@@ -1,5 +1,5 @@
 
 if which rbenv > /dev/null
-	export PATH="$HOME/.rbenv/bin:$PATH"
-	rbenv init - | source
+#	rbenv init - | source
+	status --is-interactive; and source (rbenv init -|psub)
 end

@@ -1,6 +1,5 @@
-
-
+[core]
+	autocrlf = false
 [include]
+	path = config.alias
 	path = config.local
-[alias]
-	ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
