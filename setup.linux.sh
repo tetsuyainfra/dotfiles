@@ -15,7 +15,7 @@ if [ ! -e ~/.rbenv ]; then
 	git clone https://github.com/rbenv/rbenv.git ~/.rbenv
 fi
 if [ ! -e ~/.rbenv/plugins/ruby-build ]; then
-	git clone https://github.com/rbenv/rbenv.git ~/.rbenv/plugins/ruby-build
+	git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 fi
 
 ### .config
