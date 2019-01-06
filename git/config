@@ -3,3 +3,5 @@
 [include]
 	path = config.alias
 	path = config.local
+[credential]
+	helper = cache
