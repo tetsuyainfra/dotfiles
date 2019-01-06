@@ -11,6 +11,12 @@ echo "DOT_DIR: $DOT_DIR"
 ### ~/.
 ## ruby
 ln -sf ${DOT_DIR}/gemrc ~/.gemrc
+if [ ! -e ~/.rbenv ]; then
+	git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+fi
+if [ ! -e ~/.rbenv/plugins/ruby-build ]; then
+	git clone https://github.com/rbenv/rbenv.git ~/.rbenv/plugins/ruby-build
+fi
 
 ### .config
 mkdir -p ~/.config
