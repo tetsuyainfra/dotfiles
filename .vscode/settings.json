@@ -1,0 +1,6 @@
+{
+  "files.exclude": {
+    ".dropbox": true,
+    "desktop.ini": true
+  }
+}
