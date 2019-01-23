@@ -1,9 +1,21 @@
 # if it does not exist, create the file
 setenv SSH_ENV $HOME/.ssh/environment
 
+set -x SSH_AGENT_EXEC ssh-agent
+set -x SSH_AGENT_ARGS ""
+if which weasel-pageant > /dev/null ;
+  echo use weasel-pageant
+  set -x SSH_AGENT_EXEC (which weasel-pageant)
+  set -x SSH_AGENT_ARGS -r -S fish
+else if which ssh-agent-wsl > /dev/null ;
+  echo use ssh-agent-wsl with Microsoft ssh-agent service
+  set -x SSH_AGENT_EXEC (which ssh-agent-wsl)
+  set -x SSH_AGENT_ARGS -r -S fish
+end
+
 function start_agent
     echo "Initializing new SSH agent ..."
-    ssh-agent -c | sed 's/^echo/#echo/' > $SSH_ENV
+    $SSH_AGENT_EXEC $SSH_AGENT_ARGS | sed 's/^echo/#echo/' > $SSH_ENV
     echo "succeeded"
     chmod 600 $SSH_ENV 
     . $SSH_ENV > /dev/null
@@ -21,7 +33,7 @@ function test_identities
 end
 
 if [ -n "$SSH_AGENT_PID" ] 
-    ps -ef | grep $SSH_AGENT_PID | grep ssh-agent > /dev/null
+    ps -ef | grep $SSH_AGENT_PID | grep $SSH_AGENT_EXEC > /dev/null
     if [ $status -eq 0 ]
         test_identities
     end  
@@ -29,7 +41,7 @@ else
     if [ -f $SSH_ENV ]
         . $SSH_ENV > /dev/null
     end  
-    ps -ef | grep "$SSH_AGENT_PID" | grep -v grep | grep ssh-agent > /dev/null
+    ps -ef | grep "$SSH_AGENT_PID" | grep -v grep | grep $SSH_AGENT_EXEC > /dev/null
     if [ $status -eq 0 ]
         test_identities
     else 
