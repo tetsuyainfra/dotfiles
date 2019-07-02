@@ -18,6 +18,11 @@ if [ ! -e ~/.rbenv/plugins/ruby-build ]; then
 	git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 fi
 
+## python3
+if [ ! -e ~/.pyenv ]; then
+	git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+fi
+
 ### .config
 mkdir -p ~/.config
 # fish
