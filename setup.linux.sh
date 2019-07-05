@@ -30,5 +30,7 @@ ln -nsf ${DOT_DIR}/fish ~/.config/fish
 # git
 ln -nsf ${DOT_DIR}/git ~/.config/git
 touch ~/.config/git/config.local
+# direnv
+ln -nsf ${DOT_DIR}/direnv ~/.config/direnv
 
 
