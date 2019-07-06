@@ -1,0 +1,10 @@
+[user]
+	email = NAME_OF_YOU@example.com
+	name = NAME_OF_YOU
+[credential]
+# linux
+#	helper = cache --timeout=3600
+# osx
+#	helper = osxkeychain
+# windows
+#	helper = wincred
