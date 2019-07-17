@@ -12,6 +12,7 @@
 if test -e $HOME/.pyenv/bin
 	set -x PYENV_ROOT $HOME/.pyenv
 	set -x PATH $PYENV_ROOT/bin   $PATH
+	set -x PATH $PYENV_ROOT/shims $PATH
 end
 
 if which pybnv > /dev/null 2>&1
