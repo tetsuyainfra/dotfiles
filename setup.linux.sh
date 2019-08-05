@@ -23,6 +23,9 @@ if [ ! -e ~/.pyenv ]; then
 	git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 fi
 
+### bin
+ln -nsf ${DOT_DIR}/bin ~/bin
+
 ### .config
 mkdir -p ~/.config
 # fish
@@ -32,5 +35,6 @@ ln -nsf ${DOT_DIR}/git ~/.config/git
 touch ~/.config/git/config.local
 # direnv
 ln -nsf ${DOT_DIR}/direnv ~/.config/direnv
+
 
 
