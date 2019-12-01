@@ -4,9 +4,7 @@ set -x
 # xcode-select --install
 # /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-DOT_DIR=$(cd $(dirname $0);pwd)
-
-echo "DOT_DIR: $DOT_DIR"
+source $(cd $(dirname $0); pwd)/_utils.sh
 
 ### ~/.
 ## ruby

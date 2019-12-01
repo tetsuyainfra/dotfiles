@@ -31,10 +31,22 @@ mkdir -p ~/.config
 # bash
 ln -nsf ${DOT_DIR}/bash/bash_profile ~/.bash_profile
 ln -nsf ${DOT_DIR}/bash/bashrc       ~/.bashrc
-# zsh
-ln -nsf ${DOT_DIR}/fish ~/.config/fish
 # fish
 ln -nsf ${DOT_DIR}/fish ~/.config/fish
+# zsh
+ln -nsf ${DOT_DIR}/zsh/zshenv     ~/.zshenv
+mkdir -p ~/.zsh
+ln -nsf ${DOT_DIR}/zsh/zshprofile ~/.zsh/.zshprofile
+ln -nsf ${DOT_DIR}/zsh/zshrc      ~/.zsh/.zshrc
+# zplug - zsh
+if [ ! -e ~/.zsh/zplug ]; then
+	git clone https://github.com/zplug/zplug ~/.zsh/zplug
+fi
+# zplugin - zsh
+if [ ! -e ~/.zsh/zplugin ]; then
+	mkdir -p ~/.zsh/zplugin
+	git clone https://github.com/zdharma/zplugin.git ~/.zsh/zplugin/bin
+fi
 
 
 #### DEV-TOOLS
