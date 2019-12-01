@@ -1,12 +1,10 @@
-#!/bin/sh
-set -x
+#!/usr/bin/env bash
+set -ex
+
+source $(cd $(dirname $0); pwd)/_utils.sh
 
 # xcode-select --install
 # /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
-DOT_DIR=$(cd $(dirname $0);pwd)
-
-echo "DOT_DIR: $DOT_DIR"
 
 ### ~/.
 ## ruby
@@ -28,8 +26,18 @@ ln -nsf ${DOT_DIR}/bin ~/bin
 
 ### .config
 mkdir -p ~/.config
+
+#### SHELL
+# bash
+ln -nsf ${DOT_DIR}/bash/bash_profile ~/.bash_profile
+ln -nsf ${DOT_DIR}/bash/bashrc       ~/.bashrc
+# zsh
+ln -nsf ${DOT_DIR}/fish ~/.config/fish
 # fish
 ln -nsf ${DOT_DIR}/fish ~/.config/fish
+
+
+#### DEV-TOOLS
 # git
 ln -nsf ${DOT_DIR}/git ~/.config/git
 touch ~/.config/git/config.local
