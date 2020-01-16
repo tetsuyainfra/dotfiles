@@ -19,7 +19,7 @@ fi
 
 
 ## fish shell
-if [ type fish > /dev/null 2>&1 ]; then
+if ! $(type fish > /dev/null 2>&1); then
   apt-add-repository -y ppa:fish-shell/release-3
   apt update
   apt-get install -y fish
@@ -27,7 +27,7 @@ fi
 
 ## zsh shell
 # chsh -s $(which zsh)
-if [ type zsh > /dev/null 2>&1 ]; then
+if ! $(type zsh > /dev/null 2>&1); then
   apt-get install -y zsh powerline fonts-powerline
 fi
 
