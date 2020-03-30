@@ -48,6 +48,9 @@ if [ ! -e ~/.zsh/zplugin ]; then
 	git clone https://github.com/zdharma/zplugin.git ~/.zsh/zplugin/bin
 fi
 
+# CLI
+ln -nsf ${DOT_DIR}/byobu ~/.byobu
+
 
 #### DEV-TOOLS
 # git
