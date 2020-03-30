@@ -67,6 +67,7 @@ apt install -y \
 # sudo apt build-dep python3.7
 
 ## Postgresql
+apt install -y curl
 sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 sudo apt update
