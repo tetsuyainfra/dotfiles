@@ -20,6 +20,9 @@ fi
 if [ ! -e ~/.pyenv ]; then
 	git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 fi
+if [ ! -e ~/.pyenv/plugins/pyenv-virtualenv ]; then
+	git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+fi
 
 ### bin
 ln -nsf ${DOT_DIR}/bin ~/bin
