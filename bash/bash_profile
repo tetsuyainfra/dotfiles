@@ -4,6 +4,5 @@ umask 022
 
 test -r ~/.bashrc && . ~/.bashrc
 
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-
 export PATH="$HOME/.cargo/bin:$PATH"
+#eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
