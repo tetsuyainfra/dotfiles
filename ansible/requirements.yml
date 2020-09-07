@@ -1,3 +1,5 @@
 ---
 - src: zzet.rbenv
   version: 3.4.7
+- src: markosamuli.pyenv
+  version: v4.0.1
