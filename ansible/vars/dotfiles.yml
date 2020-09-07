@@ -1,0 +1,4 @@
+
+# inventory_dir is following path...
+# ->  $HOME/dotfiles/ansible/inventries/[local|home|dev]
+DOT_DIR: "{{ inventory_dir | dirname | dirname | dirname }}"

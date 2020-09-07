@@ -1,0 +1,21 @@
+---
+- name: Setup vars for local environment
+  hosts: localhost
+  vars_prompt:
+    - name: "dot_username"
+      prompt: "セットアップに利用するユーザ名を指定してください"
+      default: "tetsuyainfra"
+      private: no
+    - name: "dot_email"
+      prompt: "セットアップに利用するEmailを指定してください"
+      default: "one@example.com"
+      private: no
+  tasks:
+    - debug:
+        msg: "{{ dot_username }}<{{ dot_email }}>"
+    - name: Setup varsを設定ファイルに保存
+      copy:
+        dest: "{{ playbook_dir | dirname }}/vars/dot_vars.yml"
+        content: |
+          dot_username: {{ dot_username }}
+          dot_email: {{ dot_email }}
