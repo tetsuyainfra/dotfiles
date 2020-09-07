@@ -1,6 +1,7 @@
 ---
 - name: Check vars
   hosts: "localhost"
+  gather_facts: no
   vars_files:
     - "{{ playbook_dir }}/vars/dotfiles.yml"
     - "{{ playbook_dir }}/vars/dot_vars.yml"
@@ -12,6 +13,7 @@
 
 - name: dotiflesの最新化
   hosts: "!localhost"
+  gather_facts: no
   vars_files:
     - "{{ playbook_dir }}/vars/dot_vars.yml"
   tasks:
@@ -19,3 +21,19 @@
         repo: "https://github.com/tetsuyainfra/dotfiles.git"
         dest: ~/dotfiles
         update: yes
+
+- name: 基本設定
+  hosts: "localhost"
+  vars_files:
+    - "{{ playbook_dir }}/vars/dotfiles.yml"
+    - "{{ playbook_dir }}/vars/dot_vars.yml"
+  tasks:
+    - import_tasks: "tasks/basic_configs.yml"
+
+- name: Role Setting
+  hosts: "localhost"
+  vars_files:
+    - "{{ playbook_dir }}/vars/dotfiles.yml"
+    - "{{ playbook_dir }}/vars/dot_vars.yml"
+  roles:
+    - "zzet.rbenv"

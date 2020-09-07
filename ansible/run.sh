@@ -9,5 +9,6 @@ pushd $DOT_ANSIBLE_DIR
     ansible-playbook -i inventories/local playbooks/init_vars.yml
   fi
 
-  ansible-playbook -i inventories/local setup.yml
+  # ansible-galaxy role install -p roles -r requirements.yml
+  ansible-playbook -i inventories/local --ask-become-pass setup.yml
 popd

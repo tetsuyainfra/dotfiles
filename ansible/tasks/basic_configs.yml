@@ -1,10 +1,4 @@
-
-- debug:
-    msg: "username: {{ dot_username }}"
-
-- name: Include vars
-  include_vars: vars.yml
-
+---
 - name: Create directories
   file:
     path: "{{ item }}"
@@ -32,10 +26,22 @@
 # - name: Create local config files
 #   file:
 
-- name: import zsh tasks
-  import_tasks: tasks/zsh.yml
-  when: False
+- name: Git config
+  ini_file:
+    path: ~/.config/git/config.local
+    section: user
+    option: "{{ item.option }}"
+    value:  "{{ item.value }}"
+    backup: no
+  loop:
+    - { option: "name", value: "{{ dot_username }}"}
+    - { option: "email", value: "{{ dot_email }}"}
 
-- name: import fish tasks
-  import_tasks: tasks/fish.yml
-  when: False
+
+# - name: import zsh tasks
+#   import_tasks: tasks/zsh.yml
+#   when: False
+
+# - name: import fish tasks
+#   import_tasks: tasks/fish.yml
+#   when: False

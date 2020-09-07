@@ -1,0 +1,10 @@
+rbenv:
+  env: user
+  version: v1.1.2
+  default_ruby: 2.6.6
+  rubies:
+    - version: 2.6.6
+    - version: 2.7.1
+
+rbenv_clean_up: false
+rbenv_repo: "https://github.com/rbenv/rbenv.git"
