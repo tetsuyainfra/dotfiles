@@ -1,0 +1,2 @@
+# playbook_dir is "dotfiles/ansible"
+DOT_DIR: "{{ playbook_dir | dirname }}"

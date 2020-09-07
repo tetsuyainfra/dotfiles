@@ -1,0 +1,6 @@
+
+- name: DEBUG Fish
+  debug:
+    msg: "Fish INCLUDED"
+## fish
+#ln -nsf ${DOT_DIR}/fish ~/.config/fish

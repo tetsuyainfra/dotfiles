@@ -1,0 +1,41 @@
+
+- debug:
+    msg: "username: {{ dot_username }}"
+
+- name: Include vars
+  include_vars: vars.yml
+
+- name: Create directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "~/.config"
+
+- name: DEBUG DOT_DIR
+  debug:
+    msg: "DOT_DIR: {{ DOT_DIR }}"
+
+- name: Link config dir/files
+  file: src={{ item.path }} dest={{ item.dest }} state=link
+  with_items:
+    # ~/bin
+    - { path: '{{ DOT_DIR }}/bin', dest: '~/bin' }
+    # Bash
+    - { path: '{{ DOT_DIR }}/bash/bash_profile', dest: '~/.bash_profile' }
+    - { path: '{{ DOT_DIR }}/bash/bashrc',       dest: '~/.bashrc' }
+    # Git
+    - { path: '{{ DOT_DIR }}/git', dest: '~/.config/git' }
+    # direnv
+    - { path: '{{ DOT_DIR }}/direnv', dest: '~/.config/direnv' }
+
+# - name: Create local config files
+#   file:
+
+- name: import zsh tasks
+  import_tasks: tasks/zsh.yml
+  when: False
+
+- name: import fish tasks
+  import_tasks: tasks/fish.yml
+  when: False

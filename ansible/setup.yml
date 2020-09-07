@@ -1,0 +1,28 @@
+---
+
+# - name: Setup vars for local environment
+#   hosts: localhost
+#   connection: local
+#   vars_prompt:
+#     - name: "dot_username"
+#       prompt: "セットアップに利用するユーザ名を指定してください [tetsuyainfra]"
+#       private: no
+#   tasks:
+#     - debug:
+#         msg: "username: {{ dot_username }}"
+
+- name: dotiflesの最新化
+  hosts: localhost
+  connection: local
+  tasks:
+    - git:
+        repo: 'https://github.com/tetsuyainfra/dotfiles.git'
+        dest: ~/dotfiles
+        update: yes
+
+
+#- name: dotfiles Setup Playbook
+#  hosts: localhost
+#  connection: local
+#  tasks:
+#    - include: tasks.yml
