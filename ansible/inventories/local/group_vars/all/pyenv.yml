@@ -20,11 +20,11 @@ pyenv_python38_version: "3.8.5"
 
 # Python versions to install
 pyenv_python_versions:
-  - "{{ pyenv_python37_version }}"
+  #  - "{{ pyenv_python37_version }}"
   - "{{ pyenv_python38_version }}"
 
 # Set global pyenv version
-pyenv_global: "{{ pyenv_python37_version }} system"
+pyenv_global: "{{ pyenv_python38_version }} system"
 
 # Optionally, install virtualenvwrapper plugin for pyenv
 pyenv_virtualenvwrapper: false
