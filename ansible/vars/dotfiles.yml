@@ -4,5 +4,7 @@
 DOT_DIR: "{{ inventory_dir | dirname | dirname | dirname }}"
 
 my_basic_config_install_packages:
+  - "direnv"
+  - "byobu"
   - "apt-file"
-  - "wcstools" # scat for Connecting Windows's OpneSSH-Agent
+  - "socat" # scat for Connecting Windows's OpneSSH-Agent

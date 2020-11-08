@@ -1,0 +1,35 @@
+# Playbook env_base.yml
+---
+- name: Check vars
+  hosts: "localhost"
+  gather_facts: no
+  vars_files:
+    - "{{ playbook_dir }}/vars/dotfiles.yml"
+    - "{{ playbook_dir }}/vars/dot_vars.yml"
+  tasks:
+    - debug:
+        msg: "DOT_DIR: {{ DOT_DIR }}"
+    - debug:
+        msg: "username<email>: {{dot_username}}<{{ dot_email }}>"
+
+
+- name: Setting with Role
+  hosts: "localhost"
+  vars:
+    rbenv_user_install: yes
+    rbenv_user_install_path: '$HOME/.rbenv'
+    rbenv_user_clean_up: no
+    rbenv_user_accept_hostkey: yes
+    rbenv_user_rbenv_version: "v1.1.2"
+    rbenv_user_version_up: no # if set yes, set branch is master and pull origin master
+    rbenv_user_ruby_versions:
+      - 2.6.6
+      - 2.7.2
+    rbenv_user_package_install_user: root # 仮にSUDO権限もってないユーザーでインストールしたらどうなるのか
+                                          # 内部で都度becomeするのが良いのでは？
+  vars_files:
+    - "{{ playbook_dir }}/vars/dotfiles.yml"
+    - "{{ playbook_dir }}/vars/dot_vars.yml"
+  roles:
+    - role: "rbenv_user"
+      rbevn_user_name: "{{ ansible_env['USER'] }}"

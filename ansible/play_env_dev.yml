@@ -1,0 +1,17 @@
+# Playbook env_dev.yml
+---
+- name: Setting with Role
+  hosts: "localhost"
+  vars_files:
+    - "{{ playbook_dir }}/vars/dotfiles.yml"
+    - "{{ playbook_dir }}/vars/dot_vars.yml"
+  become: yes
+  roles:
+    - role: "geerlingguy.nodejs"
+
+# - name: Check vars
+#   hosts: "localhost"
+#   tasks:
+#     - debug:
+#         msg: "true"
+#       when: "lookup('env','ENV_DEV') | bool"

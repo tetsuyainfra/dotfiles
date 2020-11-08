@@ -1,5 +1,7 @@
 ---
 - src: zzet.rbenv
   version: 3.4.7
-- src: markosamuli.pyenv
-  version: v4.0.1
+# - src: markosamuli.pyenv
+#   version: v4.0.1
+- src: geerlingguy.nodejs
+  version: 5.1.1

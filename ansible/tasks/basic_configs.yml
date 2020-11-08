@@ -23,9 +23,6 @@
     # direnv
     - { path: '{{ DOT_DIR }}/direnv', dest: '~/.config/direnv' }
 
-# - name: Create local config files
-#   file:
-
 - name: Git config
   ini_file:
     path: ~/.config/git/config.local
