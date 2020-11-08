@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -ex
 
-USE_PYTHON_VERSION=3.8.5
+USE_PYTHON_VERSION=3.8.6
 
 # pyenv setup
 if [ ! -e ~/.pyenv ]; then
@@ -42,4 +42,4 @@ pushd ansible
 pyenv local use_ansible
 pip3 install ansible
 popd
-
+#
