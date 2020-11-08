@@ -44,7 +44,7 @@
     - "{{ playbook_dir }}/vars/dot_vars.yml"
   roles:
     - role: "zzet.rbenv"
-    - role: "markosamuli.pyenv"
+#    - role: "markosamuli.pyenv"
 
 # - name: DEBUG
 #   hosts: "localhost"

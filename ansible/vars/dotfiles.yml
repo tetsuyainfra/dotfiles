@@ -2,3 +2,7 @@
 # inventory_dir is following path...
 # ->  $HOME/dotfiles/ansible/inventries/[local|home|dev]
 DOT_DIR: "{{ inventory_dir | dirname | dirname | dirname }}"
+
+my_basic_config_install_packages:
+  - "apt-file"
+  - "wcstools" # scat for Connecting Windows's OpneSSH-Agent

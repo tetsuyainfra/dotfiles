@@ -45,3 +45,9 @@
 # - name: import fish tasks
 #   import_tasks: tasks/fish.yml
 #   when: False
+
+- name: Install BasicConfig pakcages
+  become: yes
+  package:
+    name: "{{ my_basic_config_install_packages }}"
+    state: present
