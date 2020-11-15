@@ -1,0 +1,16 @@
+# defaults file for my-dev
+---
+
+# if yes, postgresql.org packages are used, else distribution packages
+my_dev_postgresql_client: no
+
+# which version should be used?
+# if postresql role (server) is available, this version is used
+# possible values: 9.5, 9.6, 10, 11, 12 or 13
+my_dev_postgresql_client_version: "{{ postgresql_version | default('12') }}"
+my_dev_postgresql_client_packages:
+ - postgresql-client-{{ postgresql_version | default(my_dev_postgresql_client_version) }}
+ - libpq-dev
+
+my_dev_postgresql_repo_key_url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+my_dev_postgresql_repo_url: 'deb https://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main'

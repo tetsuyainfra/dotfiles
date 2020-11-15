@@ -1,0 +1,2 @@
+my_dev_postgresql_client: yes
+my_dev_postgresql_client_version: '12'

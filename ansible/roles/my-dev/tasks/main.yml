@@ -1,7 +1,13 @@
 ---
+- import_tasks: "_variables.yml"
+  tags: postgresql
 
 # - import_tasks: "pyenv.yml"
 #   when: my_use_pyenv
 
 # - import_tasks: "rbenv.yml"
 #   when: my_use_rbenv
+
+- import_tasks: "postgresql_client.yml"
+  when: my_dev_postgresql_client
+  tags: postgresql

@@ -1,0 +1,8 @@
+---
+- name: Debian variables
+  include_vars: '{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml'
+  when: ansible_distribution == 'Debian'
+
+- name: Ubuntu variables
+  include_vars: '{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml'
+  when: ansible_distribution == 'Ubuntu'

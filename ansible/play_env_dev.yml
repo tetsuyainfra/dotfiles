@@ -6,8 +6,19 @@
     - "{{ playbook_dir }}/vars/dotfiles.yml"
     - "{{ playbook_dir }}/vars/dot_vars.yml"
   become: yes
+  tags: nodejs
   roles:
     - role: "geerlingguy.nodejs"
+
+- name: Setting with MyRoles
+  hosts: "localhost"
+  vars_files:
+    - "{{ playbook_dir }}/vars/dotfiles.yml"
+    - "{{ playbook_dir }}/vars/dot_vars.yml"
+  become: yes
+  roles:
+    - role: "my-dev"
+
 
 # - name: Check vars
 #   hosts: "localhost"

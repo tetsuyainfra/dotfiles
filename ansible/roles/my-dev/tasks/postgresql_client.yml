@@ -1,0 +1,29 @@
+---
+# - name: Debug
+#   debug:
+#     var: my_dev_postgresql_client_packages
+
+- name: Require packages
+  vars:
+    require_pkgs:
+      - gpg
+      - gpg-agent
+  apt:
+    name: "{{ require_pkgs }}"
+    state: present
+
+- name: Add postgreSQL GPG key
+  apt_key:
+    url: '{{ my_dev_postgresql_repo_key_url }}'
+    state: present
+
+- name: Add postgreSQL apt repository
+  apt_repository:
+    repo: '{{ my_dev_postgresql_repo_url }}'
+    update_cache: yes
+    state: present
+
+- name: Be sure postgreSQL client packages are installed
+  apt:
+    name: '{{ my_dev_postgresql_client_packages }}'
+    state: present
