@@ -9,3 +9,9 @@ sudo ./setup.sh
 
 ```
 
+
+
+
+# Bash
+- Ubuntu環境では .bash_aliases にリンクを張っておけば
+  bashrcの書き換えなどをしなくて済む

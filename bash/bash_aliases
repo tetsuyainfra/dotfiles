@@ -1,0 +1,141 @@
+# dotfiles/bash/bash_aliases
+
+# dotfiles
+export PATH="$HOME/dotfiles/bin:$PATH"
+
+source $HOME/dotfiles/bash/git-prompt.sh
+
+################################################################################
+# Prompt
+################################################################################
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+# プロンプトに各種情報を表示
+#GIT_PS1_SHOWDIRTYSTATE=1
+#GIT_PS1_SHOWUPSTREAM=1
+#GIT_PS1_SHOWUNTRACKEDFILES=
+#GIT_PS1_SHOWSTASHSTATE=1
+
+############### ターミナルのコマンド受付状態の表示変更
+# \u ユーザ名
+# \h ホスト名
+# \W カレントディレクトリ
+# \w カレントディレクトリのパス
+# \n 改行
+# \d 日付
+# \[ 表示させない文字列の開始
+# \] 表示させない文字列の終了
+# \$ $
+if [ "$color_prompt" = yes ]; then
+#    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1)\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+################################################################################
+# Alias
+################################################################################
+
+# enable color support of ls and also add handy aliases
+#if [ -x /usr/bin/dircolors ]; then
+#    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+#    alias ls='ls --color=auto'
+#    #alias dir='dir --color=auto'
+#    #alias vdir='vdir --color=auto'
+#
+#    alias grep='grep --color=auto'
+#    alias fgrep='fgrep --color=auto'
+#    alias egrep='egrep --color=auto'
+#fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# some more ls aliases
+# alias ll='ls -alF'
+# alias la='ls -A'
+# alias l='ls -CF'
+
+
+################################################################################
+# Command
+################################################################################
+# linux homebrew
+if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+  alias brew="PATH=/home/tetsuyainfra/.cargo/bin:/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/tetsuyainfra/dotfiles/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games brew"
+fi
+
+# Rust
+if [ -f $HOME/.cargo/bin ]; then
+export PATH="$HOME/.cargo/bin:$PATH"
+source "$HOME/.cargo/env"
+fi
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
+
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+if command -v rbenv 1>/dev/null 2>&1; then
+  eval "$(rbenv init -)"
+fi
+
+# direnv
+if type direnv >/dev/null 2>&1; then
+	eval "$(direnv hook bash)"
+fi
+
+# Yarn
+if type yarn >/dev/null 2>&1; then
+	export PATH="$HOME/.yarn/bin:$PATH"
+fi
+
+
+# editor
+if command -v vim 1>/dev/null 2>&1; then
+  export EDITOR=vim
+elif command -v vi 1>/dev/null 2>&1; then
+  export EDITOR=vi
+fi
+
+# ssh-agent
+# 有効時間（好きな秒数に設定)
+#SSH_KEY_LIFE_TIME_SEC=3600
+#SSH_AGENT_FILE=$HOME/.ssh-agent
+#test -f $SSH_AGENT_FILE && source $SSH_AGENT_FILE > /dev/null 2>&1
+#if [ $( ps -ef | grep ssh-agent | grep -v grep | wc -l ) -eq 0 ]; then
+#    ssh-agent -t $SSH_KEY_LIFE_TIME_SEC > $SSH_AGENT_FILE
+#    source $SSH_AGENT_FILE > /dev/null 2>&1
+#fi
+export SSH_AUTH_SOCK=$HOME/.ssh/agent.sock
+ss -a | grep -q $SSH_AUTH_SOCK
+if [ $? -ne 0 ]; then
+	rm -f $SSH_AUTH_SOCK
+	( setsid socat UNIX-LISTEN:$SSH_AUTH_SOCK,fork EXEC:"/mnt/d/opt/bin/npiperelay.exe -ei -s //./pipe/openssh-ssh-agent",nofork & ) >/dev/null 2>&1
+fi
+
