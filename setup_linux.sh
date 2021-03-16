@@ -8,11 +8,11 @@ DOT_DIR=`dotdir`
 
 
 function link_file() {
-ln -s "${DOT_DIR}/$1" "$2"
+ln --no-dereference -s "${DOT_DIR}/$1" "$2"
 }
 
 function link_file_force() {
-ln --force -s "${DOT_DIR}/$1" "$2"
+ln --force --no-dereference -s "${DOT_DIR}/$1" "$2"
 }
 
 function ConfirmGitInfo(){
@@ -33,8 +33,8 @@ case "$yn" in [yY]*) ;; *) echo "abort." ; exit ;; esac
 }
 
 
-ConfirmGitInfo
-ConfirmExecution
+#ConfirmGitInfo
+#ConfirmExecution
 
 set -x
 
@@ -46,10 +46,16 @@ link_file_force "bash/bash_aliases" "${HOME}/.bash_aliases"
 link_file_force "bash/bash_profile" "${HOME}/.bash_profile"
 
 # install byobu
+link_file_force "byobu" "${HOME}/.config/byobu"
 
 # install direnv
+link_file_force "direnv" "${HOME}/.config/direnv"
 
 # install Git
 link_file_force "git" "${HOME}/.config/git"
+if [ -n "${GIT_USERNAME}" -a  -n "${GIT_EMAIL}" ]; then
 git config -f .config/git/config.local --add user.name ${GIT_USERNAME}
 git config -f .config/git/config.local --add user.email ${GIT_EMAIL}
+fi
+
+
