@@ -9,16 +9,22 @@ set -e
 
 # sudo apt update
 ENABLE_DEFAULT=${ENABLE_DEFAULT:=1}
+INSTALL_PYTHON_VERSION=${ENABLE_PYTHON_VERSION:=3.9.1}
+INSTALL_RUBY_VERSION=${ENABLE_RUBY_VERSION:=2.7.2}
 
 if [[ "X${ENABLE_ALL}" == "X1" ]]; then
 ENABLE_DEFAULT=1
 ENABLE_PYTHON=1
 ENABLE_RUBY=1
+ENABLE_NODE=1
+ENABLE_RUST=1
 fi
 
 echo "ENABLE_DEFAULT: $ENABLE_DEFAULT"
 echo "ENABLE_PYTHON:  $ENABLE_PYTHON"
-echo "ENABLE_RUBY: $ENABLE_RUBY"
+echo "ENABLE_RUBY:    $ENABLE_RUBY"
+echo "ENABLE_NODE:    $ENABLE_NODE"
+echo "ENABLE_RUST:    $ENABLE_RUST"
 
 if [[ "X${ENABLE_DEFAULT}" == "X1" ]]; then
 # socat for ssh-agent on windows service
@@ -62,6 +68,89 @@ ADD_PACKAGES+=$(echo  " build-essential" \
   libdb-dev)
 fi
 
+# Node
+if [ -n "${ENABLE_NODE}" ]; then
+ADD_PACKAGES+=$(echo  " build-essential" \
+  python3 \
+  python3-distutils \
+  g++ \
+  make)
+fi
 
+
+
+
+################################################################################
+# Install packages
+################################################################################
 # sudo apt install --dry-run $ADD_PACKAGES
 sudo apt install -y $ADD_PACKAGES
+
+
+
+# Python - Pyenv
+if [ -n "${ENABLE_PYTHON}" ]; then
+  echo "Install pyenv"
+  if [ ! -e ~/.pyenv ]; then
+  	git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+  fi
+  if [ ! -e ~/.pyenv/plugins/pyenv-virtualenv ]; then
+  	git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+  fi
+
+  if [ -z "$PYENV_SHELL" ] ; then
+  	export PYENV_ROOT="$HOME/.pyenv"
+  	export PATH="$PYENV_ROOT/bin:$PATH"
+  	if command -v pyenv 1>/dev/null 2>&1; then
+  		eval "$(pyenv init -)"
+  		eval "$(pyenv virtualenv-init -)"
+  	fi
+  fi
+  pyenv install $INSTALL_PYTHON_VERSION
+fi
+
+# Ruby - rbenv
+if [ -n "${ENABLE_RUBY}" ]; then
+  echo "Install rbenv"
+  if [ ! -e ~/.rbenv ]; then
+  	git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+  fi
+  if [ ! -e ~/.rbenv/plugins/ruby-build ]; then
+  	git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+  fi
+
+  if [ -z "$RBENV_SHELL" ]; then
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    command -v rbenv
+  	if command -v rbenv 1>/dev/null 2>&1; then
+      eval "$(rbenv init -)"
+  	fi
+  fi
+  rbenv install $INSTALL_RUBY_VERSION
+fi
+
+
+# Rust
+if [ -n "${ENABLE_RUST}" ]; then
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+fi
+
+
+# echo "Install anyenv"
+# if [ ! -e ~/.anyenv ]; then
+#   git clone https://github.com/anyenv/anyenv ~/.anyenv
+# fi
+# export PATH="$HOME/.anyenv/bin:$PATH"
+# eval "$(anyenv init -)"
+# if [ ! -e ~/.config/anyenv/anyenv-install ]; then
+#   anyenv install --force-init
+# else
+#   anyenv install --update
+# fi
+
+# if [ -n "${ENABLE_PYTHON}" ]; then
+#   anyenv install pyenv
+# fi
+# if [ -n "${ENABLE_RUBY}" ]; then
+#   anyenv install rbenv
+# fi
