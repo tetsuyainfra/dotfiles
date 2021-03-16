@@ -58,4 +58,5 @@ git config -f .config/git/config.local --add user.name ${GIT_USERNAME}
 git config -f .config/git/config.local --add user.email ${GIT_EMAIL}
 fi
 
-
+# Ruby
+link_file_force "ruby/gemrc" "${HOME}/.gemrc"
