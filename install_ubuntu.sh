@@ -122,6 +122,7 @@ if [ -n "${ENABLE_PYTHON}" ]; then
   fi
   pyenv install --skip-existing $INSTALL_PYTHON_VERSION
   pyenv global $INSTALL_PYTHON_VERSION
+  pyenv rehash
 fi
 
 # Ruby - rbenv
@@ -146,9 +147,10 @@ if [ -n "${ENABLE_RUBY}" ]; then
   fi
   rbenv install --skip-existing $INSTALL_RUBY_VERSION
   rbenv global $INSTALL_RUBY_VERSION
+  rbenv rehash
 fi
 
-# Rust
+# Node
 if [ -n "${ENABLE_NODE}" ]; then
   echo "Install nodenv"
   if [ ! -e ~/.nodenv ]; then
@@ -171,6 +173,8 @@ if [ -n "${ENABLE_NODE}" ]; then
   fi
   nodenv install --skip-existing $INSTALL_NODE_VERSION
   nodenv global $INSTALL_NODE_VERSION
+  npm install --global yarn
+  nodenv rehash
 fi
 
 
