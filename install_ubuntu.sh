@@ -9,8 +9,9 @@ set -e
 
 # sudo apt update
 ENABLE_DEFAULT=${ENABLE_DEFAULT:=1}
-INSTALL_PYTHON_VERSION=${ENABLE_PYTHON_VERSION:=3.9.1}
-INSTALL_RUBY_VERSION=${ENABLE_RUBY_VERSION:=2.7.2}
+INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:=3.9.1}
+INSTALL_RUBY_VERSION=${INSTALL_RUBY_VERSION:=2.7.2}
+INSTALL_NODE_VERSION=${INSTALL_NODE_VERSION:=14.16.0}
 
 if [[ "X${ENABLE_ALL}" == "X1" ]]; then
 ENABLE_DEFAULT=1
@@ -106,7 +107,8 @@ if [ -n "${ENABLE_PYTHON}" ]; then
   		eval "$(pyenv virtualenv-init -)"
   	fi
   fi
-  pyenv install $INSTALL_PYTHON_VERSION
+  pyenv install --skip-existing $INSTALL_PYTHON_VERSION
+  pyenv global $INSTALL_PYTHON_VERSION
 fi
 
 # Ruby - rbenv
@@ -121,12 +123,37 @@ if [ -n "${ENABLE_RUBY}" ]; then
 
   if [ -z "$RBENV_SHELL" ]; then
     export PATH="$HOME/.rbenv/bin:$PATH"
-    command -v rbenv
   	if command -v rbenv 1>/dev/null 2>&1; then
       eval "$(rbenv init -)"
   	fi
   fi
-  rbenv install $INSTALL_RUBY_VERSION
+  rbenv install --skip-existing $INSTALL_RUBY_VERSION
+  rbenv global $INSTALL_RUBY_VERSION
+fi
+
+# Rust
+if [ -n "${ENABLE_NODE}" ]; then
+  echo "Install nodenv"
+  if [ ! -e ~/.nodenv ]; then
+    git clone https://github.com/nodenv/nodenv.git ~/.nodenv
+    # to speed up
+    pushd ~/.nodenv
+      src/configure && make -C src
+    popd
+  fi
+  if [ ! -e ~/.nodenv/plugins/node-build ]; then
+    # git clone https://github.com/nodenv/node-build.git "$(nodenv root)"/plugins/node-build
+    git clone https://github.com/nodenv/node-build.git ~/.nodenv/plugins/node-build
+  fi
+
+  if [ -z "$NODENV_SHELL" ]; then
+    export PATH="$HOME/.nodenv/bin:$PATH"
+  	if command -v nodenv 1>/dev/null 2>&1; then
+      eval "$(nodenv init -)"
+  	fi
+  fi
+  nodenv install --skip-existing $INSTALL_NODE_VERSION
+  nodenv global $INSTALL_NODE_VERSION
 fi
 
 
