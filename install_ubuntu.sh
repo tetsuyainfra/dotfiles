@@ -7,6 +7,15 @@
 
 set -e
 
+function dotdir() {
+  echo "$(cd $(dirname $0); pwd)"
+}
+DOT_DIR=`dotdir`
+
+function link_file_force() {
+  ln --force --no-dereference -s "${DOT_DIR}/$1" "$2"
+}
+
 # sudo apt update
 ENABLE_DEFAULT=${ENABLE_DEFAULT:=1}
 INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:=3.9.1}
@@ -26,6 +35,7 @@ echo "ENABLE_PYTHON:  $ENABLE_PYTHON"
 echo "ENABLE_RUBY:    $ENABLE_RUBY"
 echo "ENABLE_NODE:    $ENABLE_NODE"
 echo "ENABLE_RUST:    $ENABLE_RUST"
+
 
 if [[ "X${ENABLE_DEFAULT}" == "X1" ]]; then
 # socat for ssh-agent on windows service
@@ -67,6 +77,9 @@ ADD_PACKAGES+=$(echo  " build-essential" \
   libgdbm6 \
   libgdbm-dev \
   libdb-dev)
+
+# for nokogiri gem
+# ADD_PACKAGES+=""
 fi
 
 # Node
@@ -120,6 +133,10 @@ if [ -n "${ENABLE_RUBY}" ]; then
   if [ ! -e ~/.rbenv/plugins/ruby-build ]; then
   	git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
   fi
+  if [ ! -e ~/.rbenv/plugins/rbenv-default-gems ]; then
+    git clone https://github.com/rbenv/rbenv-default-gems.git ~/.rbenv/plugins/rbenv-default-gems
+  fi
+  link_file_force "ruby/default-gems" "${HOME}/.rbenv/default-gems"
 
   if [ -z "$RBENV_SHELL" ]; then
     export PATH="$HOME/.rbenv/bin:$PATH"
