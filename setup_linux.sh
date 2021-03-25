@@ -33,8 +33,8 @@ case "$yn" in [yY]*) ;; *) echo "abort." ; exit ;; esac
 }
 
 
-#ConfirmGitInfo
-#ConfirmExecution
+ConfirmGitInfo
+ConfirmExecution
 
 set -x
 
@@ -54,8 +54,8 @@ link_file_force "direnv" "${HOME}/.config/direnv"
 # install Git
 link_file_force "git" "${HOME}/.config/git"
 if [ -n "${GIT_USERNAME}" -a  -n "${GIT_EMAIL}" ]; then
-git config -f .config/git/config.local --add user.name ${GIT_USERNAME}
-git config -f .config/git/config.local --add user.email ${GIT_EMAIL}
+git config -f ~/.config/git/config.local --add user.name ${GIT_USERNAME}
+git config -f ~/.config/git/config.local --add user.email ${GIT_EMAIL}
 fi
 
 # Ruby
