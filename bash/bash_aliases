@@ -4,6 +4,15 @@
 export PATH="$HOME/dotfiles/bin:$PATH"
 
 source $HOME/dotfiles/bash/git-prompt.sh
+if [ -e $HOME/.bash_completion.d ]; then
+  nullglob_status=$(shopt -p nullglob)
+    shopt -s nullglob
+    for f in ~/.bash_completion.d/*.bash ; do
+      source $f
+    done
+  $nullglob_status
+fi
+
 
 ################################################################################
 # Prompt

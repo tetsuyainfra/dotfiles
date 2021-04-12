@@ -44,6 +44,7 @@ mkdir -p $HOME/.config
 # install Bash
 link_file_force "bash/bash_aliases" "${HOME}/.bash_aliases"
 link_file_force "bash/bash_profile" "${HOME}/.bash_profile"
+link_file_force "bash/bash_completion.d" "${HOME}/.bash_completion.d"
 
 # install byobu
 link_file_force "byobu" "${HOME}/.config/byobu"
