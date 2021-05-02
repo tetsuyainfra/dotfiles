@@ -16,7 +16,7 @@
 
 	logg = log --graph --all --decorate
 	log1 = log --pretty='format:%C(yellow)%h%Creset %C(magenta)%cd%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset%C(black bold)%ar%Creset' --date=iso
-	dhub = !"git diff | git-split-diffs --color | less -RXF"
+	dhub = !"git diff | npm exec -- git-split-diffs@0.10.0 --color | less -RXF"
 
 #	dp = diff --no-prefix
 #	dsp = diff --cached --no-prefix
