@@ -1,4 +1,6 @@
 # tetsuyainfra/dotfiles/bash/bashrc
+# これはリンクしない
+bash_profile -> bashrc -> bash_aliasesの順に読み込ませる
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
@@ -168,7 +170,7 @@ fi
 
 # ssh-agent
 # 有効時間（好きな秒数に設定)
-#SSH_KEY_LIFE_TIME_SEC=3600 
+#SSH_KEY_LIFE_TIME_SEC=3600
 #SSH_AGENT_FILE=$HOME/.ssh-agent
 #test -f $SSH_AGENT_FILE && source $SSH_AGENT_FILE > /dev/null 2>&1
 #if [ $( ps -ef | grep ssh-agent | grep -v grep | wc -l ) -eq 0 ]; then
