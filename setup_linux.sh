@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+#set -e
 
 function dotdir() {
   echo "$(cd $(dirname $0); pwd)"
@@ -41,6 +41,7 @@ case "$yn" in [yY]*) ;; *) echo "abort." ; exit ;; esac
 
 
 ConfirmGitInfo
+set -e
 ConfirmExecution
 
 set -x
