@@ -1,5 +1,6 @@
 [core]
 	autocrlf = false
+	quotepath = false
 [include]
 	path = config.alias
 	path = config.local
