@@ -5,7 +5,15 @@
 
 # how to use: WSL(Ubuntu)
 ```
-sudo ./setup.sh
+# set repository url from https to git.
+./setup/modify_git_remote_repo_url.sh
+
+# install conf
+./setup.sh
+
+# install environment
+## install all package
+ENABLE_ALL=1 ./install_ubuntu.sh
 
 ```
 

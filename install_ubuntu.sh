@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # usage:
 #   ./install_ubunthy.sh
-#   ENABLE_ALL=1 ./install_ubunthy.sh     # install all package
-#   ENABLE_PYTHON=1 ./install_ubunthy.sh  # install default and python building packages
+#   ENABLE_ALL=1    ./install_ubuntu.sh     # install all package
+#   ENABLE_PYTHON=1 ./install_ubuntu.sh  # install default and python building packages
 #
 
 set -e
