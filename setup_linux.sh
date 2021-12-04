@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 #set -e
+# detect what we have
+if [  $(uname -a | grep -c "Microsoft") -eq 1 ]; then
+    export ISWSL=1 # WSL 1
+elif [ $(uname -a | grep -c "microsoft") -eq 1 ]; then
+    export ISWSL=2 # WSL 2
+else
+    export ISWSL=0
+fi
 
 function dotdir() {
   echo "$(cd $(dirname $0); pwd)"
@@ -72,3 +80,15 @@ fi
 
 # Ruby
 link_file_force "ruby/gemrc" "${HOME}/.gemrc"
+
+
+# WSL2 support ssh
+if [ ${ISWSL} -eq 2 ]; then
+  windows_destination="/mnt/d/opt/bin/wsl2-ssh-pageant.exe"
+  linux_destination="$HOME/.ssh/wsl2-ssh-pageant.exe"
+  mkdir -p $HOME/.ssh
+  chmod +x "$windows_destination"
+  ln -s $windows_destination $linux_destination
+fi
+
+
