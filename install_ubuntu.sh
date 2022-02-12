@@ -28,6 +28,7 @@ ENABLE_PYTHON=1
 ENABLE_RUBY=1
 ENABLE_NODE=1
 ENABLE_RUST=1
+ENABLE_PACKER=1
 fi
 
 echo "ENABLE_DEFAULT: $ENABLE_DEFAULT"
@@ -184,6 +185,13 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-mod
 cargo install git-cliff
 fi
 
+# Packer # create cloud images
+if [ -n "${ENABLE_PACKER}" ]; then
+  curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+  sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+  sudo apt-get update
+  sudo apt-get install -y packer
+fi
 
 # echo "Install anyenv"
 # if [ ! -e ~/.anyenv ]; then
