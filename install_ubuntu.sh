@@ -20,7 +20,7 @@ function link_file_force() {
 ENABLE_DEFAULT=${ENABLE_DEFAULT:=1}
 INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:=3.9.9}
 INSTALL_RUBY_VERSION=${INSTALL_RUBY_VERSION:=2.7.5}
-INSTALL_NODE_VERSION=${INSTALL_NODE_VERSION:=14.17.5}
+INSTALL_NODE_VERSION=${INSTALL_NODE_VERSION:=14.19.0}
 
 if [[ "X${ENABLE_ALL}" == "X1" ]]; then
 ENABLE_DEFAULT=1
@@ -174,6 +174,7 @@ if [ -n "${ENABLE_NODE}" ]; then
   nodenv install --skip-existing $INSTALL_NODE_VERSION
   nodenv global $INSTALL_NODE_VERSION
   npm install --global yarn
+  npm install --global npm-check-updates
   nodenv rehash
 fi
 
