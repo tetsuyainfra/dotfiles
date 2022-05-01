@@ -41,7 +41,7 @@ if [[ "X${ENABLE_DEFAULT}" == "X1" ]]; then
 # socat for ssh-agent on windows service
 ADD_PACKAGES="socat"
 # shell extensions
-ADD_PACKAGES+=" direnv byobu"
+ADD_PACKAGES+=" direnv byobu git-flow"
 fi
 
 
