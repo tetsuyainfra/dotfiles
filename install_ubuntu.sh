@@ -18,9 +18,9 @@ function link_file_force() {
 
 # sudo apt update
 ENABLE_DEFAULT=${ENABLE_DEFAULT:=1}
-INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:=3.9.9}
-INSTALL_RUBY_VERSION=${INSTALL_RUBY_VERSION:=2.7.5}
-INSTALL_NODE_VERSION=${INSTALL_NODE_VERSION:=14.19.0}
+INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:=3.9.12}
+INSTALL_RUBY_VERSION=${INSTALL_RUBY_VERSION:=3.1.2}
+INSTALL_NODE_VERSION=${INSTALL_NODE_VERSION:=16.15.0}
 
 if [[ "X${ENABLE_ALL}" == "X1" ]]; then
 ENABLE_DEFAULT=1
@@ -182,7 +182,11 @@ fi
 # Rust
 if [ -n "${ENABLE_RUST}" ]; then
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
-cargo install git-cliff
+
+  if [ -e "$HOME/.cargo/env" ]; then
+    source $HOME/.cargo/env
+    cargo install git-cliff
+  fi
 fi
 
 # echo "Install anyenv"
