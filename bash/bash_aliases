@@ -3,20 +3,14 @@
 # dotfiles
 export PATH="$HOME/dotfiles/bin:$PATH"
 
-source $HOME/dotfiles/bash/git-prompt.sh
-if [ -e $HOME/.bash_completion.d ]; then
-  nullglob_status=$(shopt -p nullglob)
-    shopt -s nullglob
-    for f in ~/.bash_completion.d/*.bash ; do
-      source $f
-    done
-  $nullglob_status
-fi
 
 
 ################################################################################
 # Prompt
 ################################################################################
+# gitリポジトリ補助
+source $HOME/dotfiles/bash/git-prompt.sh
+
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
@@ -208,7 +202,7 @@ export GPG_AGENT_SOCK="$HOME/.gnupg/S.gpg-agent"
   fi
 fi
 
-# use agent in tmux 
+# use agent in tmux
 #agent="$HOME/.ssh/agent"
 #if [ -S "$SSH_AUTH_SOCK" ]; then
 #    case $SSH_AUTH_SOCK in
@@ -221,3 +215,24 @@ fi
 #    echo "no ssh-agent"
 #fi
 
+
+# Use X Server
+# In WSL2
+if [[ "$(uname -r)" == *microsoft* ]]; then
+  export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
+  export LIBGL_ALWAYS_INDIRECT=1
+fi
+
+
+################################################################################
+# Command completions
+################################################################################
+# コマンドの存在チェックしてたりするので最後尾で読み込む
+if [ -e $HOME/.bash_completion.d ]; then
+  nullglob_status=$(shopt -p nullglob)
+    shopt -s nullglob
+    for f in ~/.bash_completion.d/*.bash ; do
+      source $f
+    done
+  $nullglob_status
+fi
