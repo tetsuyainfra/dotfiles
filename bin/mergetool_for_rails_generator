@@ -1,0 +1,25 @@
+#!/bin/bash
+
+tmp_path=$1
+destination_path=$2
+orig_path=${destination_path}.orig
+
+# オリジナルを一度別名でバックアップ
+mv ${destination_path} ${orig_path}
+
+# 二つのファイルを見比べる基準、共通の祖先となるファイルを空で生成
+touch ${destination_path}
+
+# mergeする
+git merge-file\
+  --stdout\
+  -L ORIG\
+  -L BASE\
+  -L GENERATED\
+  ${orig_path} \
+  ${destination_path} \
+  ${tmp_path} > ${destination_path}
+
+# vscodeを起動して、オリジナルのバックアップを削除。
+code --wait ${destination_path} && rm -f ${orig_path}
+

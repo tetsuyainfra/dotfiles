@@ -1,5 +1,5 @@
 #!/bin/sh
-set -x
+set -ex
 
 DOT_DIR=$(cd $(dirname $0);pwd)
 echo "DOT_DIR: $DOT_DIR"

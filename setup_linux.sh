@@ -57,6 +57,9 @@ set -x
 # creat $HOME/config
 mkdir -p $HOME/.config
 
+# install bin
+link_dir_force "bin" "${HOME}/.bin"
+
 # install Bash
 link_file_force "bash/bash_aliases" "${HOME}/.bash_aliases"
 link_file_force "bash/bash_profile" "${HOME}/.bash_profile"
