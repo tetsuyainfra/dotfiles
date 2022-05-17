@@ -1,4 +1,5 @@
 #!/bin/bash
+# cat $(rustc --print sysroot)/etc/bash_completion.d/cargo > cargo.bash
 # Required for bash versions < 4.1
 # Default bash version is 3.2 on latest macOS. See #6874
 shopt -s extglob
