@@ -84,6 +84,9 @@ fi
 # Ruby
 link_file_force "ruby/gemrc" "${HOME}/.gemrc"
 
+# inputrc
+link_file_force "home-dir/inputrc" "${HOME}/.inputrc"
+
 
 # WSL2 support ssh
 if [ ${ISWSL} -eq 2 ]; then
