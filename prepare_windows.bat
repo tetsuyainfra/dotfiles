@@ -64,8 +64,8 @@ IF "%GOT_EMAIL%"=="" GOTO :INPUT_EMAIL
 @REM ~/.config/git/config.localの設定
 @REM ------------------------------------------------------------
 SET HOME=%homedrive%%homepath%
-git config -f %HOME%\.config/git/config.local --add user.name  %GOT_USERNAME%
-git config -f %HOME%\.config/git/config.local --add user.email %GOT_EMAIL%
+git config -f %HOME%\.config/git/config.local user.name  %GOT_USERNAME%
+git config -f %HOME%\.config/git/config.local user.email %GOT_EMAIL%
 
 
 @popd
