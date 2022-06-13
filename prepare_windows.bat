@@ -12,6 +12,7 @@ echo "DOT_DIR: %DOT_DIR%"
 echo "DOTTER_LOCAL_SKEL: %DOTTER_LOCAL_SKEL%"
 echo "DOTTER_LOCAL_FILE: %DOTTER_LOCAL_FILE%"
 
+@pushd %DOT_DIR%
 
 @REM ------------------------------------------------------------
 @REM GIT_USERNAME
@@ -48,8 +49,6 @@ IF "%GOT_EMAIL%"=="" GOTO :INPUT_EMAIL
 @REM DOTFILEのデプロイj
 @REM ------------------------------------------------------------
 
-@pushd %DOT_DIR%
-
  @if not exist %DOTTER_LOCAL_FILE% (
    @REM "Windows用ローカルコンフィグをコピーする"
    copy %DOTTER_LOCAL_SKEL% %DOTTER_LOCAL_FILE%
@@ -61,15 +60,15 @@ IF "%GOT_EMAIL%"=="" GOTO :INPUT_EMAIL
   @REM "ドットファイルのコピー"
   %DOT_DIR%bin\dotter.exe deploy
 
-@popd
-
-
 @REM ------------------------------------------------------------
 @REM ~/.config/git/config.localの設定
 @REM ------------------------------------------------------------
 SET HOME=%homedrive%%homepath%
 git config -f %HOME%\.config/git/config.local --add user.name  %GOT_USERNAME%
 git config -f %HOME%\.config/git/config.local --add user.email %GOT_EMAIL%
+
+
+@popd
 
 endlocal
 
