@@ -23,7 +23,7 @@ for /f "usebackq delims=" %%A in (`git config --get user.name`) do set GOT_USERN
 if defined GOT_USERNAME (
     echo "GOT_USERNAME: %GOT_USERNAME%"
 ) else (
-    echo 定義されていません 指定してもらう
+    echo USERNAMEが定義されていません 指定してください
     SET /P GOT_USERNAME="git config user.name: "
 )
 IF "%GOT_USERNAME%"=="" GOTO :INPUT_USERNAME
@@ -38,7 +38,7 @@ for /f "usebackq delims=" %%A in (`git config --get user.email`) do set GOT_EMAI
 if defined GOT_EMAIL (
     echo "GOT_EMAIL: %GOT_EMAIL%"
 ) else (
-    echo 定義されていません 指定してもらう
+    echo EMAILが定義されていません 指定してください
     SET /P GOT_EMAIL="git config user.email: "
 )
 IF "%GOT_EMAIL%"=="" GOTO :INPUT_EMAIL
