@@ -1,0 +1,12 @@
+#
+# .dotter/skel/local_windows.toml
+# This file will be copyied by prepare_windows.bat
+#
+
+includes = [".dotter/include/ubuntu.toml"]
+packages = ["default", "bin"]
+
+[files]
+"home-dir/inputrc" = "~/.inputrc"
+
+[variables]

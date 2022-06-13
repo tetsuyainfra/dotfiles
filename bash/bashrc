@@ -1,6 +1,11 @@
 # tetsuyainfra/dotfiles/bash/bashrc
-# これはリンクしない
-bash_profile -> bashrc -> bash_aliasesの順に読み込ませる
+# これはリンク"しない"
+# ___サンプルファイル___
+#
+# ログイン時：
+# bash_profile -> bashrc -> bash_aliasesの順に読み込ませる
+# ログインなし時：
+# bashrc -> bash_aliasesの順に読み込ませる
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)

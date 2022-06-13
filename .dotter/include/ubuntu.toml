@@ -1,0 +1,3 @@
+
+[default.files]
+"home-dir/inputrc" = "~/.inputrc"

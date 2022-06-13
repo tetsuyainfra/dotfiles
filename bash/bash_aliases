@@ -1,9 +1,8 @@
 # dotfiles/bash/bash_aliases
 
-# dotfiles
+# bin directory
+# ~/.binにsymlinkとどっちが良い？
 export PATH="$HOME/dotfiles/bin:$PATH"
-
-
 
 ################################################################################
 # Prompt
