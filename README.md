@@ -35,6 +35,8 @@ ENABLE_ALL=1 ./install_ubuntu.sh
   - bin/dotter, bin/dotter.exeを含める
 - OSの違いはprepare_{windows.bat|unix.sh}で吸収する
   - バッチファイル内で.dotter/local.tomlをOS毎のスケルトンをコピーする
+- prepare_* は 設定ファイルのコピー/リンク
+- setup_* は基本ソフトウェアのインストール
 
 
 # Bash
