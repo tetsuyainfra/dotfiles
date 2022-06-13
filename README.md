@@ -30,6 +30,11 @@ ENABLE_ALL=1 ./install_ubuntu.sh
 ```
 
 
+# 仕組みのメモ
+- dotterでファイルの管理をする
+  - bin/dotter, bin/dotter.exeを含める
+- OSの違いはprepare_{windows.bat|unix.sh}で吸収する
+  - バッチファイル内で.dotter/local.tomlをOS毎のスケルトンをコピーする
 
 
 # Bash
