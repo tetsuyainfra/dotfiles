@@ -3,7 +3,7 @@
 
 [tetsuyainfra/dotfile.git](https://github.com/tetsuyainfra/dotfile.git)
 
-# how to use: WSL(Ubuntu)
+## how to use: Ubuntu@WSL2
 ```
 # set repository url from https to git.
 ./setup/modify_git_remote_repo_url.sh
@@ -14,6 +14,18 @@
 # install environment
 ## install all package
 ENABLE_ALL=1 ./install_ubuntu.sh
+
+```
+
+## how to use: CommandLine(Windows)
+```
+# set repository url from https to git.
+./setup/modify_git_remote_repo_url.bat
+
+# install conf
+./prepare_windows.bat
+
+
 
 ```
 
