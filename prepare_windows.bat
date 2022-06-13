@@ -46,7 +46,7 @@ IF "%GOT_EMAIL%"=="" GOTO :INPUT_EMAIL
 
 @ECHO ON
 @REM ------------------------------------------------------------
-@REM DOTFILEのデプロイj
+@REM DOTFILEのデプロイ
 @REM ------------------------------------------------------------
 
  @if not exist %DOTTER_LOCAL_FILE% (
@@ -57,8 +57,8 @@ IF "%GOT_EMAIL%"=="" GOTO :INPUT_EMAIL
    @echo "dotterのOS毎のファイルコピーをスキップします"
  )
 
-  @REM "ドットファイルのコピー"
-  %DOT_DIR%bin\dotter.exe deploy
+@REM "ドットファイルのコピー"
+%DOT_DIR%dotter.exe deploy
 
 @REM ------------------------------------------------------------
 @REM ~/.config/git/config.localの設定
