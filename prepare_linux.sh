@@ -52,7 +52,7 @@ fi
 ## dotter
 pushd ${DOT_DIR}
 
-dotter
+./dotter
 
 ## GIT
 git config -f ~/.config/git/config.local user.name ${GIT_USERNAME}
