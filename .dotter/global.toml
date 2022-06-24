@@ -12,7 +12,7 @@ depends = ["git"]
 #------------------------------------------------------------
 [bin]
 [bin.files]
-# direcotryをsymbolic linkとして作成
+# direcotryの中身をsymbolic linkとして作成
 bin = { target = "~/.bin", type = "symbolic" }
 
 #------------------------------------------------------------

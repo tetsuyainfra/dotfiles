@@ -2,7 +2,8 @@
 
 # bin directory
 # ~/.binにsymlinkとどっちが良い？
-export PATH="$HOME/dotfiles/bin:$PATH"
+# export PATH="$HOME/dotfiles/bin:$PATH"
+export PATH="$HOME/.bin:$PATH"
 
 ################################################################################
 # Prompt
