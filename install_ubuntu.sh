@@ -185,6 +185,8 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-mod
 
   if [ -e "$HOME/.cargo/env" ]; then
     source $HOME/.cargo/env
+    rustup component add rust-analyzer rls
+    rustup +nightly component add rust-analyzer
     cargo install git-cliff
     # pretty print rust source (using rustc nightly build)
     cargo install cargo-expand
