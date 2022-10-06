@@ -8,8 +8,8 @@
 # set repository url from https to git.
 ./setup/modify_git_remote_repo_url.sh
 
-# copy dotter settings
-cp .dotter/skel/local_ubuntu.toml .dotter/local.toml
+# create symbolic link for dotter local settings
+ln -s skel/local_ubuntu.toml .dotter/local.toml
 
 # prepare conf & execute dotter in script
 ./prepare_linux.sh
