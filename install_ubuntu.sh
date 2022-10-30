@@ -42,6 +42,8 @@ if [[ "X${ENABLE_DEFAULT}" == "X1" ]]; then
 ADD_PACKAGES="socat"
 # shell extensions
 ADD_PACKAGES+=" direnv byobu git-flow"
+# sometime use devlopping
+ADD_PACKAGES+=" pkgconf"
 fi
 
 
