@@ -119,7 +119,12 @@ if [ -n "${ENABLE_ASDF}" ]; then
   if [ -z "$ASDF_DIR" ] ; then
     source "$HOME/.asdf/asdf.sh"
     source "$HOME/.asdf/completions/asdf.bash"
+
   fi
+  asdf plugin add python
+  asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
+  asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+  asdf plugin add rust https://github.com/code-lever/asdf-rust.git
 fi
 
 
