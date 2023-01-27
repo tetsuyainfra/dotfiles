@@ -18,12 +18,14 @@ function link_file_force() {
 
 # sudo apt update
 ENABLE_DEFAULT=${ENABLE_DEFAULT:=1}
+INSTALL_ASDF_VERSION=${INSTALL_PYTHON_VERSION:=0.11.1}
 INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:=3.10.8}
 INSTALL_RUBY_VERSION=${INSTALL_RUBY_VERSION:=3.2.0}
 INSTALL_NODE_VERSION=${INSTALL_NODE_VERSION:=16.18.0}
 
 if [[ "X${ENABLE_ALL}" == "X1" ]]; then
 ENABLE_DEFAULT=1
+ENABLE_ASDF=1
 ENABLE_PYTHON=1
 ENABLE_RUBY=1
 ENABLE_NODE=1
@@ -31,6 +33,7 @@ ENABLE_RUST=1
 fi
 
 echo "ENABLE_DEFAULT: $ENABLE_DEFAULT"
+echo "ENABLE_ASDF:    $ENABLE_ASDF"
 echo "ENABLE_PYTHON:  $ENABLE_PYTHON"
 echo "ENABLE_RUBY:    $ENABLE_RUBY"
 echo "ENABLE_NODE:    $ENABLE_NODE"
@@ -46,6 +49,10 @@ ADD_PACKAGES+=" direnv byobu git-flow"
 ADD_PACKAGES+=" pkgconf"
 fi
 
+# ASDF
+if [ -n "${ENABLE_ASDF}" ]; then
+ADD_PACKAGES+=$(echo " curl git")
+fi
 
 # Python3
 if [ -n "${ENABLE_PYTHON}" ]; then
@@ -102,6 +109,18 @@ fi
 # sudo apt install --dry-run $ADD_PACKAGES
 sudo apt install -y $ADD_PACKAGES
 
+# ADFS - like anyenv
+if [ -n "${ENABLE_ASDF}" ]; then
+  echo "Install asdf"
+  if [ ! -e ~/.asdf ]; then
+    git clone https://github.com/asdf-vm/asdf.git ~/.asdf \
+      --branch v${INSTALL_ASDF_VERSION}
+  fi
+  if [ -z "$ASDF_DIR" ] ; then
+    source "$HOME/.asdf/asdf.sh"
+    source "$HOME/.asdf/completions/asdf.bash"
+  fi
+fi
 
 
 # Python - Pyenv

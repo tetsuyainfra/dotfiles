@@ -102,6 +102,12 @@ fi
 #eval "$(anyenv init -)"
 #fi
 
+# ASDF
+if [ -e $HOME/.asdf/asdf.sh ]; then
+  source "$HOME/.asdf/asdf.sh"
+  source "$HOME/.asdf/completions/asdf.bash"
+fi
+
 ## pyenv
 if [ -e $HOME/.pyenv ]; then
   export PYENV_ROOT="$HOME/.pyenv"
