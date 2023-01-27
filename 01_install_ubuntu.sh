@@ -109,23 +109,23 @@ fi
 # sudo apt install --dry-run $ADD_PACKAGES
 sudo apt install -y $ADD_PACKAGES
 
-# ADFS - like anyenv
-if [ -n "${ENABLE_ASDF}" ]; then
-  echo "Install asdf"
-  if [ ! -e ~/.asdf ]; then
-    git clone https://github.com/asdf-vm/asdf.git ~/.asdf \
-      --branch v${INSTALL_ASDF_VERSION}
-  fi
-  if [ -z "$ASDF_DIR" ] ; then
-    source "$HOME/.asdf/asdf.sh"
-    source "$HOME/.asdf/completions/asdf.bash"
+# # ADFS - like anyenv
+# if [ -n "${ENABLE_ASDF}" ]; then
+#   echo "Install asdf"
+#   if [ ! -e ~/.asdf ]; then
+#     git clone https://github.com/asdf-vm/asdf.git ~/.asdf \
+#       --branch v${INSTALL_ASDF_VERSION}
+#   fi
+#   if [ -z "$ASDF_DIR" ] ; then
+#     source "$HOME/.asdf/asdf.sh"
+#     source "$HOME/.asdf/completions/asdf.bash"
 
-  fi
-  asdf plugin add python
-  asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
-  asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-  asdf plugin add rust https://github.com/code-lever/asdf-rust.git
-fi
+#   fi
+#   asdf plugin add python
+#   asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
+#   asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+#   asdf plugin add rust https://github.com/code-lever/asdf-rust.git
+# fi
 
 
 # Python - Pyenv
