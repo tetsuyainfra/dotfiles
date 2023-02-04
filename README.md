@@ -70,6 +70,7 @@ ENABLE_ALL=1 ./install_ubuntu.sh
 - poetry は環境毎に venv を作るが、パッケージに含まれるコマンドは PATH に入らない。
   - これを有効にするには`poetry shell`を入力しなくてはならない。
   - 毎回入力するのは面倒なので direnv を使うこれは`echo layout poetry > .envrc`が必要
+    - 詳細 https://github.com/direnv/direnv/wiki/Python#poetry
 
 # Ruby 開発環境
 
