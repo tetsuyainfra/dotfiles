@@ -56,3 +56,26 @@ ENABLE_ALL=1 ./install_ubuntu.sh
   cat -> bat
   dig -> dog carate.io に登録されてない
   man -> tealdeer(tldr)
+
+# Rust 開発環境
+
+- Rust のバージョンは rustup で管理する
+
+# Python 開発環境
+
+- Python のバージョンは pyenv で管理する
+- CLI は pipx で管理する(pipx はコマンド毎に venv を作ってくれる)
+- 各ソフトウェアでパッケージ管理は poetry を使う
+  - poetry のプラグイン管理は pipx コマンドを使わないと行けないのを忘れないこと(詳細は公式サイトの Plugins ドキュメントを参照)
+- poetry は環境毎に venv を作るが、パッケージに含まれるコマンドは PATH に入らない。
+  - これを有効にするには`poetry shell`を入力しなくてはならない。
+  - 毎回入力するのは面倒なので direnv を使うこれは`echo layout poetry > .envrc`が必要
+
+# Ruby 開発環境
+
+- Ruby のバージョンは rbenv で管理する
+- v 3.2.0 から yjit が有効になった。これは Rust に依存するので Ruby を入れると Rust も入る
+
+# Node 開発環境
+
+- Node のバージョンは nodenv で管理する
