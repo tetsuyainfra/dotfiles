@@ -173,6 +173,11 @@ if [ -n "${ENABLE_PYTHON}" ]; then
   pyenv install --skip-existing ${INSTALL_PYTHON_VERSION}
   pyenv global ${INSTALL_PYTHON_VERSION}
   pyenv rehash
+
+  # install Poetry
+  if [ ! -e ~/.local/bin/poetry ]; then
+    curl -sSL https://install.python-poetry.org | python3 -
+  fi
 fi
 
 # Ruby - rbenv
