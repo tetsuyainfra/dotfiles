@@ -25,19 +25,19 @@ INSTALL_NODE_VERSION=${INSTALL_NODE_VERSION:=18.14.0}
 
 if [[ "X${ENABLE_ALL}" == "X1" ]]; then
 ENABLE_DEFAULT=1
+ENABLE_RUST=1
 ENABLE_ASDF=1
 ENABLE_PYTHON=1
 ENABLE_RUBY=1
 ENABLE_NODE=1
-ENABLE_RUST=1
 fi
 
 echo "ENABLE_DEFAULT: $ENABLE_DEFAULT"
+echo "ENABLE_RUST:    $ENABLE_RUST"
 echo "ENABLE_ASDF:    $ENABLE_ASDF"
 echo "ENABLE_PYTHON:  $ENABLE_PYTHON"
 echo "ENABLE_RUBY:    $ENABLE_RUBY"
 echo "ENABLE_NODE:    $ENABLE_NODE"
-echo "ENABLE_RUST:    $ENABLE_RUST"
 
 
 if [[ "X${ENABLE_DEFAULT}" == "X1" ]]; then
@@ -73,6 +73,9 @@ fi
 
 # Ruby
 if [ -n "${ENABLE_RUBY}" ]; then
+# Before v3.2.0, needs rust(for yjit)
+ENABLE_RUST=1
+
 ADD_PACKAGES+=$(echo  " build-essential" \
   autoconf \
   bison \
@@ -88,7 +91,10 @@ ADD_PACKAGES+=$(echo  " build-essential" \
   libdb-dev)
 
 # for nokogiri gem
-# ADD_PACKAGES+=""
+ADD_PACKAGES+=" liblzma-dev patch "
+
+# for sqlite3
+ADD_PACKAGES+=" libsqlite3-dev "
 fi
 
 # Node
@@ -99,8 +105,6 @@ ADD_PACKAGES+=$(echo  " build-essential" \
   g++ \
   make)
 fi
-
-
 
 
 ################################################################################
@@ -127,6 +131,23 @@ sudo apt install -y $ADD_PACKAGES
 #   asdf plugin add rust https://github.com/code-lever/asdf-rust.git
 # fi
 
+
+# Rust
+if [ -n "${ENABLE_RUST}" ]; then
+  echo "Install Rust"
+  if [ ! -e ~/.cargo ]; then
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+  fi
+
+  if [ -e "$HOME/.cargo/env" ]; then
+    source $HOME/.cargo/env
+    rustup component add rust-analyzer rls
+    rustup +nightly component add rust-analyzer
+    cargo install git-cliff
+    # pretty print rust source (using rustc nightly build)
+    cargo install cargo-expand
+  fi
+fi
 
 # Python - Pyenv
 if [ -n "${ENABLE_PYTHON}" ]; then
@@ -214,19 +235,6 @@ if [ -n "${ENABLE_NODE}" ]; then
 fi
 
 
-# Rust
-if [ -n "${ENABLE_RUST}" ]; then
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
-
-  if [ -e "$HOME/.cargo/env" ]; then
-    source $HOME/.cargo/env
-    rustup component add rust-analyzer rls
-    rustup +nightly component add rust-analyzer
-    cargo install git-cliff
-    # pretty print rust source (using rustc nightly build)
-    cargo install cargo-expand
-  fi
-fi
 
 # echo "Install anyenv"
 # if [ ! -e ~/.anyenv ]; then
