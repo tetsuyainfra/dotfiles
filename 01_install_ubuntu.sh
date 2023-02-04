@@ -21,7 +21,7 @@ ENABLE_DEFAULT=${ENABLE_DEFAULT:=1}
 INSTALL_ASDF_VERSION=${INSTALL_ASDF_VERSION:=0.11.1}
 INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:=3.11.1}
 INSTALL_RUBY_VERSION=${INSTALL_RUBY_VERSION:=3.2.0}
-INSTALL_NODE_VERSION=${INSTALL_NODE_VERSION:=16.18.0}
+INSTALL_NODE_VERSION=${INSTALL_NODE_VERSION:=18.14.0}
 
 if [[ "X${ENABLE_ALL}" == "X1" ]]; then
 ENABLE_DEFAULT=1
@@ -160,6 +160,9 @@ if [ -n "${ENABLE_RUBY}" ]; then
   if [ ! -e ~/.rbenv ]; then
     git clone https://github.com/rbenv/rbenv.git ~/.rbenv
   fi
+  if [ ! -e ~/.rbenv/plugins/rbenv-update ]; then
+    git clone https://github.com/rkh/rbenv-update.git ~/.rbenv/plugins/rbenv-update
+  fi
   if [ ! -e ~/.rbenv/plugins/ruby-build ]; then
     git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
   fi
@@ -188,6 +191,9 @@ if [ -n "${ENABLE_NODE}" ]; then
     pushd ~/.nodenv
       src/configure && make -C src
     popd
+  fi
+  if [ ! -e ~/.nodenv/plugins/nodenv-update ]; then
+    git clone https://github.com/nodenv/nodenv-update.git ~/.nodenv/plugins/nodenv-update
   fi
   if [ ! -e ~/.nodenv/plugins/node-build ]; then
     # git clone https://github.com/nodenv/node-build.git "$(nodenv root)"/plugins/node-build
