@@ -174,9 +174,16 @@ if [ -n "${ENABLE_PYTHON}" ]; then
   pyenv global ${INSTALL_PYTHON_VERSION}
   pyenv rehash
 
+  # install pipx (each cli-command's environment manager)
+  if [ ! -e ~/.local/bin/pipx ]; then
+    python3 -m pip install --user pipx
+    python3 -m pipx ensurepath
+  fi
+
   # install Poetry
   if [ ! -e ~/.local/bin/poetry ]; then
-    curl -sSL https://install.python-poetry.org | python3 -
+    # curl -sSL https://install.python-poetry.org | python3 -
+    pipx install poetry
   fi
 fi
 
