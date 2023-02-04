@@ -18,8 +18,8 @@ function link_file_force() {
 
 # sudo apt update
 ENABLE_DEFAULT=${ENABLE_DEFAULT:=1}
-INSTALL_ASDF_VERSION=${INSTALL_PYTHON_VERSION:=0.11.1}
-INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:=3.10.8}
+INSTALL_ASDF_VERSION=${INSTALL_ASDF_VERSION:=0.11.1}
+INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:=3.11.1}
 INSTALL_RUBY_VERSION=${INSTALL_RUBY_VERSION:=3.2.0}
 INSTALL_NODE_VERSION=${INSTALL_NODE_VERSION:=16.18.0}
 
@@ -132,22 +132,25 @@ sudo apt install -y $ADD_PACKAGES
 if [ -n "${ENABLE_PYTHON}" ]; then
   echo "Install pyenv"
   if [ ! -e ~/.pyenv ]; then
-  	git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+    git clone https://github.com/pyenv/pyenv.git ~/.pyenv
   fi
   if [ ! -e ~/.pyenv/plugins/pyenv-virtualenv ]; then
-  	git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+    git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+  fi
+  if [ ! -e ~/.pyenv/plugins/pyenv-update ]; then
+    git clone https://github.com/pyenv/pyenv-update.git ~/.pyenv/plugins/pyenv-update
   fi
 
   if [ -z "$PYENV_SHELL" ] ; then
-  	export PYENV_ROOT="$HOME/.pyenv"
-  	export PATH="$PYENV_ROOT/bin:$PATH"
-  	if command -v pyenv 1>/dev/null 2>&1; then
-  		eval "$(pyenv init -)"
-  		eval "$(pyenv virtualenv-init -)"
-  	fi
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    if command -v pyenv 1>/dev/null 2>&1; then
+      eval "$(pyenv init -)"
+      eval "$(pyenv virtualenv-init -)"
+    fi
   fi
-  pyenv install --skip-existing $INSTALL_PYTHON_VERSION
-  pyenv global $INSTALL_PYTHON_VERSION
+  pyenv install --skip-existing ${INSTALL_PYTHON_VERSION}
+  pyenv global ${INSTALL_PYTHON_VERSION}
   pyenv rehash
 fi
 
@@ -155,10 +158,10 @@ fi
 if [ -n "${ENABLE_RUBY}" ]; then
   echo "Install rbenv"
   if [ ! -e ~/.rbenv ]; then
-  	git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+    git clone https://github.com/rbenv/rbenv.git ~/.rbenv
   fi
   if [ ! -e ~/.rbenv/plugins/ruby-build ]; then
-  	git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+    git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
   fi
   if [ ! -e ~/.rbenv/plugins/rbenv-default-gems ]; then
     git clone https://github.com/rbenv/rbenv-default-gems.git ~/.rbenv/plugins/rbenv-default-gems
@@ -167,9 +170,9 @@ if [ -n "${ENABLE_RUBY}" ]; then
 
   if [ -z "$RBENV_SHELL" ]; then
     export PATH="$HOME/.rbenv/bin:$PATH"
-  	if command -v rbenv 1>/dev/null 2>&1; then
+    if command -v rbenv 1>/dev/null 2>&1; then
       eval "$(rbenv init -)"
-  	fi
+    fi
   fi
   rbenv install --skip-existing $INSTALL_RUBY_VERSION
   rbenv global $INSTALL_RUBY_VERSION
@@ -193,9 +196,9 @@ if [ -n "${ENABLE_NODE}" ]; then
 
   if [ -z "$NODENV_SHELL" ]; then
     export PATH="$HOME/.nodenv/bin:$PATH"
-  	if command -v nodenv 1>/dev/null 2>&1; then
+    if command -v nodenv 1>/dev/null 2>&1; then
       eval "$(nodenv init -)"
-  	fi
+    fi
   fi
   nodenv install --skip-existing $INSTALL_NODE_VERSION
   nodenv global $INSTALL_NODE_VERSION
