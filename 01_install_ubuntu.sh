@@ -185,6 +185,10 @@ if [ -n "${ENABLE_PYTHON}" ]; then
     # curl -sSL https://install.python-poetry.org | python3 -
     pipx install poetry
   fi
+  if [ ! -e ~/.bash_completion.d/poetry.bash ]; then
+    poetry completions bash > ~/.bash_completion.d/poetry.bash
+    chmod +x ~/.bash_completion.d/poetry.bash
+  fi
 fi
 
 # Ruby - rbenv
