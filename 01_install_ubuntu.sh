@@ -22,6 +22,7 @@ INSTALL_ASDF_VERSION=${INSTALL_ASDF_VERSION:=0.11.1}
 INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:=3.11.1}
 INSTALL_RUBY_VERSION=${INSTALL_RUBY_VERSION:=3.2.0}
 INSTALL_NODE_VERSION=${INSTALL_NODE_VERSION:=18.14.0}
+INSTALL_GO_VERSION=${INSTALL_GO_VERSION:=1.19.5}
 
 if [[ "X${ENABLE_ALL}" == "X1" ]]; then
 ENABLE_DEFAULT=1
@@ -30,6 +31,7 @@ ENABLE_ASDF=1
 ENABLE_PYTHON=1
 ENABLE_RUBY=1
 ENABLE_NODE=1
+ENABLE_GO=1
 fi
 
 echo "ENABLE_DEFAULT: $ENABLE_DEFAULT"
@@ -38,6 +40,7 @@ echo "ENABLE_ASDF:    $ENABLE_ASDF"
 echo "ENABLE_PYTHON:  $ENABLE_PYTHON"
 echo "ENABLE_RUBY:    $ENABLE_RUBY"
 echo "ENABLE_NODE:    $ENABLE_NODE"
+echo "ENABLE_GO:    $ENABLE_GO"
 
 
 if [[ "X${ENABLE_DEFAULT}" == "X1" ]]; then
@@ -250,6 +253,27 @@ if [ -n "${ENABLE_NODE}" ]; then
   nodenv rehash
 fi
 
+
+# Go
+if [ -n "${ENABLE_GO}" ]; then
+  echo "Install Go"
+  if [ ! -e ~/.goenv ]; then
+    git clone https://github.com/syndbg/goenv.git ~/.goenv
+  fi
+
+  if [ -z "$GOENV_ROOT" ]; then
+    export GOENV_ROOT="$HOME/.goenv"
+    export PATH="$GOENV_ROOT/bin:$PATH"
+    if command -v goenv 1>/dev/null 2>&1; then
+      eval "$(goenv init -)"
+    fi
+    export PATH="$GOROOT/bin:$PATH"
+    export PATH="$PATH:$GOPATH/bin"
+  fi
+  goenv install --skip-existing $INSTALL_GO_VERSION
+  goenv global $INSTALL_GO_VERSION
+  goenv rehash
+fi
 
 
 # echo "Install anyenv"
