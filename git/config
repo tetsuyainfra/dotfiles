@@ -8,3 +8,5 @@
 	helper = cache
 
 # vim:ft=gitconfig
+[init]
+	defaultBranch = main
