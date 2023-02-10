@@ -92,7 +92,7 @@ fi
 # NixOS
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
   . $HOME/.nix-profile/etc/profile.d/nix.sh
-fi # added by Nix installer
+fi
 
 # Rust
 if [ -e $HOME/.cargo ]; then

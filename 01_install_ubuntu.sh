@@ -124,8 +124,17 @@ sudo apt install -y $ADD_PACKAGES
 ################################################################################
 if [ -n "${ENABLE_NIXOS}" ]; then
   # WSL2の場合、SingleUserModeでインストールする必要がある
-  if [ -z "$NIX_PROFILES" ] ; then
+  if [ ! -e /nix ] ; then
     sh <(curl -L https://nixos.org/nix/install) --no-daemon --no-modify-profile
+  fi
+
+  if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
+    echo Enable Nix OS temporaly
+    . $HOME/.nix-profile/etc/profile.d/nix.sh
+
+    # for github action's Debug
+    echo "Add Packages via nix-env"
+    nix-env -iA nixpkgs.act
   fi
 fi
 
