@@ -26,6 +26,7 @@ INSTALL_GO_VERSION=${INSTALL_GO_VERSION:=1.19.5}
 
 if [[ "X${ENABLE_ALL}" == "X1" ]]; then
 ENABLE_DEFAULT=1
+ENABLE_NIXOS=1
 ENABLE_RUST=1
 ENABLE_ASDF=1
 ENABLE_PYTHON=1
@@ -35,6 +36,7 @@ ENABLE_GO=1
 fi
 
 echo "ENABLE_DEFAULT: $ENABLE_DEFAULT"
+echo "ENABLE_NIXOS:   $ENABLE_NIXOS"
 echo "ENABLE_RUST:    $ENABLE_RUST"
 echo "ENABLE_ASDF:    $ENABLE_ASDF"
 echo "ENABLE_PYTHON:  $ENABLE_PYTHON"
@@ -116,6 +118,21 @@ fi
 # sudo apt install --dry-run $ADD_PACKAGES
 sudo apt install -y $ADD_PACKAGES
 
+
+################################################################################
+# Install NixOS(package manager)
+################################################################################
+if [ -n "${ENABLE_NIXOS}" ]; then
+  # WSL2の場合、SingleUserModeでインストールする必要がある
+  if [ -z "$NIX_PROFILES" ] ; then
+    sh <(curl -L https://nixos.org/nix/install) --no-daemon --no-modify-profile
+  fi
+fi
+
+
+################################################################################
+# Install *env
+################################################################################
 # # ADFS - like anyenv
 # if [ -n "${ENABLE_ASDF}" ]; then
 #   echo "Install asdf"

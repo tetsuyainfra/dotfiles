@@ -4,3 +4,4 @@ umask 022
 
 test -r ~/.bashrc && . ~/.bashrc
 
+

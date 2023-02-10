@@ -89,6 +89,11 @@ if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
   alias brew="PATH=/home/tetsuyainfra/.cargo/bin:/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/tetsuyainfra/dotfiles/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games brew"
 fi
 
+# NixOS
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
+  . $HOME/.nix-profile/etc/profile.d/nix.sh
+fi # added by Nix installer
+
 # Rust
 if [ -e $HOME/.cargo ]; then
 export PATH="$HOME/.cargo/bin:$PATH"
