@@ -19,7 +19,7 @@ function link_file_force() {
 # sudo apt update
 ENABLE_DEFAULT=${ENABLE_DEFAULT:=1}
 INSTALL_ASDF_VERSION=${INSTALL_ASDF_VERSION:=0.11.1}
-INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:=3.11.1}
+INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:=3.11.3}
 INSTALL_RUBY_VERSION=${INSTALL_RUBY_VERSION:=3.2.0}
 INSTALL_NODE_VERSION=${INSTALL_NODE_VERSION:=18.14.0}
 INSTALL_GO_VERSION=${INSTALL_GO_VERSION:=1.19.5}
@@ -72,7 +72,9 @@ ADD_PACKAGES+=$(echo  " build-essential" \
   zlib1g-dev \
   uuid-dev \
   libffi-dev \
-  libdb-dev)
+  libdb-dev \
+  libopencv-dev \
+  tk-dev )
 fi
 
 
