@@ -20,8 +20,8 @@ function link_file_force() {
 ENABLE_DEFAULT=${ENABLE_DEFAULT:=1}
 INSTALL_ASDF_VERSION=${INSTALL_ASDF_VERSION:=0.11.1}
 INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:=3.11.3}
-INSTALL_RUBY_VERSION=${INSTALL_RUBY_VERSION:=3.2.0}
-INSTALL_NODE_VERSION=${INSTALL_NODE_VERSION:=18.14.0}
+INSTALL_RUBY_VERSION=${INSTALL_RUBY_VERSION:=3.2.2}
+INSTALL_NODE_VERSION=${INSTALL_NODE_VERSION:=18.16.1}
 INSTALL_GO_VERSION=${INSTALL_GO_VERSION:=1.19.5}
 
 if [[ "X${ENABLE_ALL}" == "X1" ]]; then
@@ -52,6 +52,10 @@ ADD_PACKAGES="socat"
 ADD_PACKAGES+=" direnv byobu git-flow"
 # sometime use devlopping
 ADD_PACKAGES+=" pkgconf"
+fi
+# if WSL
+if [[ "$(uname -r)" == *microsoft* ]]; then
+ADD_PACKAGES+=" wslu"
 fi
 
 # ASDF
@@ -118,8 +122,13 @@ fi
 # Install packages
 ################################################################################
 # sudo apt install --dry-run $ADD_PACKAGES
+if [[ "$(uname -r)" == *microsoft* ]]; then
+  echo "on WSL"
+  sudo apt install -y software-properties-common
+  sudo add-apt-repository ppa:wslutilities/wslu
+  sudo apt update
+fi
 sudo apt install -y $ADD_PACKAGES
-
 
 ################################################################################
 # Install NixOS(package manager)
