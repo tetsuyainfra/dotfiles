@@ -125,7 +125,7 @@ fi
 if [[ "$(uname -r)" == *microsoft* ]]; then
   echo "on WSL"
   sudo apt install -y software-properties-common
-  sudo add-apt-repository ppa:wslutilities/wslu
+  sudo add-apt-repository -y ppa:wslutilities/wslu
   sudo apt update
 fi
 sudo apt install -y $ADD_PACKAGES
