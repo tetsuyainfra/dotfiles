@@ -1,6 +1,6 @@
 #
-# .dotter/skel/local_windows.toml
-# This file will be copyied by prepare_windows.bat
+# .dotter/skel/local_ubuntu.toml
+# This file will be copyied by 00_prepare_linux.sh
 #
 
 includes = [".dotter/include/ubuntu.toml"]
@@ -10,3 +10,6 @@ packages = ["default", "bash", "vim", "tmux", "ruby", "direnv", "bin"]
 "home-dir/inputrc" = "~/.inputrc"
 
 [variables]
+git_username =
+email =
+podman_port = 5000

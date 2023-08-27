@@ -1,0 +1,3 @@
+if type podman >/dev/null 2>&1; then
+podman system connection add podman -d --identity ~/.ssh/podman-default ssh://user@$(hostname -I|tr -d " "):{{ podman_port  }}/run/user/1000/podman/podman.sock
+if

@@ -160,7 +160,6 @@ if type yarn >/dev/null 2>&1; then
 	export PATH="$HOME/.yarn/bin:$PATH"
 fi
 
-
 # editor
 if command -v vim 1>/dev/null 2>&1; then
   export EDITOR=vim
@@ -249,6 +248,10 @@ fi
 #   export LIBGL_ALWAYS_INDIRECT=1
 # fi
 
+# bash_local
+if [ -f ~/.bash_local ]; then
+    . ~/.bash_local
+fi
 
 ################################################################################
 # Command completions

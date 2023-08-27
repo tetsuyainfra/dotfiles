@@ -9,3 +9,6 @@ packages = ["default"]
 [files]
 
 [variables]
+git_username =
+email =
+podman_port = 5000

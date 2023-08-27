@@ -29,6 +29,7 @@ git = "~/.config/git"
 [bash.files]
 "bash/bash_aliases" = "~/.bash_aliases"
 "bash/bash_profile" = "~/.bash_profile"
+"bash/bash_local" = "~/.bash_local"
 "bash/bash_completion.d" = { target = "~/.bash_completion.d",  type = "symbolic" }
 
 #------------------------------------------------------------

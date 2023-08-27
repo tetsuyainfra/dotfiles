@@ -3,10 +3,12 @@
 	quotepath = false
 [include]
 	path = config.alias
-	path = config.local
 [credential]
 	helper = cache
-
-# vim:ft=gitconfig
 [init]
 	defaultBranch = main
+[user]
+	email = {{ email }}
+	name = {{ git_username }}
+
+# vim:ft=gitconfig

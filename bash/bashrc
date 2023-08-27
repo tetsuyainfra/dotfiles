@@ -189,4 +189,5 @@ if [ $? -ne 0 ]; then
 	( setsid socat UNIX-LISTEN:$SSH_AUTH_SOCK,fork EXEC:"/mnt/d/opt/bin/npiperelay.exe -ei -s //./pipe/openssh-ssh-agent",nofork & ) >/dev/null 2>&1
 fi
 
+
 source "$HOME/.cargo/env"

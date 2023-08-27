@@ -9,10 +9,13 @@
 ./setup/modify_git_remote_repo_url.sh
 
 # create symbolic link for dotter local settings
-ln -s skel/local_ubuntu.toml .dotter/local.toml
+cp .dotter/skel/local_ubuntu.toml .dotter/local.toml
+vi .dotter/local.toml
+> email = "HOGEHOGE@example.com"
+> etc...
 
 # prepare conf & execute dotter in script
-./prepare_linux.sh
+./00_prepare_linux.sh
 
 # install environment
 ## install all package
@@ -30,7 +33,6 @@ ENABLE_ALL=1 ./install_ubuntu.sh
 ./prepare_windows.bat
 
 
-
 ```
 
 # 仕組みのメモ
@@ -41,6 +43,15 @@ ENABLE_ALL=1 ./install_ubuntu.sh
   - バッチファイル内で.dotter/local.toml を OS 毎のスケルトンをコピーする
 - prepare\_\* は 設定ファイルのコピー/リンク
 - setup\_\* は基本ソフトウェアのインストール
+
+# dotter バージョンアップ
+
+- [dotter](https://github.com/SuperCuber/dotter)
+
+```
+curl -L https://github.com/SuperCuber/dotter/releases/download/v0.13.0/dotter -O
+curl -L https://github.com/SuperCuber/dotter/releases/download/v0.13.0/dotter.exe -O
+```
 
 # Bash
 
@@ -80,3 +91,26 @@ ENABLE_ALL=1 ./install_ubuntu.sh
 # Node 開発環境
 
 - Node のバージョンは nodenv で管理する
+
+# Podman の利用のメモ
+
+```shell
+ssh-keygen -t ed25519 -C user@podman-machine-default -f ~/.ssh/podman-default -N ""
+# -f : output keyfile
+# -N : pass phrase option
+
+cat ~/.ssh/podman-default.pub | wsl.exe -d podman-machine-default -u user --cd /home/user -e tee -a .ssh/authorized_keys
+
+# ip check
+hostname -I
+# port check
+PS C:\Users\admin> podman system connection list
+
+# login check
+ssh user@$(hostname -I|tr -d " ") -p [PORT] -i podman-default -o IdentitiesOnly=yes
+
+podman system connection add podman -d --identity ~/.ssh/podman-default ssh://user@$(hostname -I|tr -d " "):56021/run/user/1000/podman/podman.sock
+
+
+podman -r run ubi8-micro date
+```
