@@ -186,6 +186,8 @@ if [ -n "${ENABLE_RUST}" ]; then
     cargo install git-cliff
     # pretty print rust source (using rustc nightly build)
     cargo install cargo-expand
+    cargo install cargo-watch
+    cargo install cross
   fi
 fi
 
