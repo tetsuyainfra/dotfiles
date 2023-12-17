@@ -122,6 +122,10 @@ if [ -e $HOME/.pyenv ]; then
     eval "$(pyenv virtualenv-init -)"
   fi
 fi
+## pipx
+if command -v pipx 1>/dev/null 2>&1; then
+    eval "$(register-python-argcomplete pipx)"
+fi
 
 # rbenv
 if [ -e $HOME/.rbenv ]; then
