@@ -7,6 +7,8 @@
 
 set -e
 
+major_ver=$(lsb_release -r -s | cut -d. -f1)
+
 function dotdir() {
   echo "$(cd $(dirname $0); pwd)"
 }
@@ -112,9 +114,11 @@ fi
 if [ -n "${ENABLE_NODE}" ]; then
 ADD_PACKAGES+=$(echo  " build-essential" \
   python3 \
-  python3-distutils \
   g++ \
   make)
+  if [[ "${major_ver}" == "22" ]]; then
+    ADD_PACKAGES+=$(echo  " python3-distutils")
+  fi
 fi
 
 
@@ -124,9 +128,11 @@ fi
 # sudo apt install --dry-run $ADD_PACKAGES
 if [[ "$(uname -r)" == *microsoft* ]]; then
   echo "on WSL"
-  sudo apt install -y software-properties-common
-  sudo add-apt-repository -y ppa:wslutilities/wslu
-  sudo apt update
+  if [[ "${major_ver}" == "22" ]]; then
+    sudo apt install -y software-properties-common
+    sudo add-apt-repository -y ppa:wslutilities/wslu
+    sudo apt update
+  fi
 fi
 sudo apt install -y $ADD_PACKAGES
 
