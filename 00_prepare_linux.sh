@@ -37,5 +37,12 @@ popd
 #  chmod +x "$windows_destination"
 #  ln -s $windows_destination $linux_destination
 #fi
+if [ ${ISWSL} -eq 2 ]; then
+  wsl2_ssh_agent_bin="$HOME/.ssh/wsl2-ssh-agent"
+  if [ ! -f "${wsl2_ssh_agent_bin}" ]; then
+    curl -L -o ${wsl2_ssh_agent_bin} https://github.com/mame/wsl2-ssh-agent/releases/latest/download/wsl2-ssh-agent
+    chmod 755 ${wsl2_ssh_agent_bin}
+  fi
+fi
 
 
