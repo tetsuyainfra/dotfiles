@@ -222,6 +222,7 @@ if [ -n "${ENABLE_PYTHON}" ]; then
   pyenv global ${INSTALL_PYTHON_VERSION}
   pyenv rehash
 
+  pip install virtualenv
   # install pipx (each cli-command's environment manager)
   if [ ! -e ~/.local/bin/pipx ]; then
     python3 -m pip install --user pipx
