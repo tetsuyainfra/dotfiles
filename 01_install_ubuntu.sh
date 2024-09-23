@@ -35,6 +35,7 @@ ENABLE_PYTHON=1
 ENABLE_RUBY=1
 ENABLE_NODE=1
 ENABLE_GO=1
+ENABLE_TERRAFORM=${ENABLE_TERRAFORM}
 fi
 
 echo "ENABLE_DEFAULT: $ENABLE_DEFAULT"
@@ -45,6 +46,7 @@ echo "ENABLE_PYTHON:  $ENABLE_PYTHON"
 echo "ENABLE_RUBY:    $ENABLE_RUBY"
 echo "ENABLE_NODE:    $ENABLE_NODE"
 echo "ENABLE_GO:    $ENABLE_GO"
+echo "ENABLE_TERRAFORM: $ENABLE_TERRAFORM"
 
 
 if [[ "X${ENABLE_DEFAULT}" == "X1" ]]; then
@@ -340,3 +342,11 @@ fi
 # if [ -n "${ENABLE_RUBY}" ]; then
 #   anyenv install rbenv
 # fi
+
+
+# Terraform
+if [ -n "${ENABLE_TERRAFORM}" ]; then
+  wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+  echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+  sudo apt update && sudo apt install terraform
+fi
