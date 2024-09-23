@@ -130,7 +130,7 @@ if [[ "$(uname -r)" == *microsoft* ]]; then
   echo "on WSL"
   if [[ "${major_ver}" == "22" ]]; then
     sudo apt install -y software-properties-common
-    sudo add-apt-repository -y ppa:wslutilities/wslu
+    # sudo add-apt-repository -y ppa:wslutilities/wslu
     sudo apt update
   fi
 fi
