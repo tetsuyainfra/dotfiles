@@ -199,6 +199,7 @@ if [ -n "${ENABLE_RUST}" ]; then
     cargo install cargo-watch
     cargo install cross
     cargo install tokio-console
+    cargo install sccache
   fi
 fi
 
