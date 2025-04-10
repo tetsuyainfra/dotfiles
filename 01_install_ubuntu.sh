@@ -64,9 +64,9 @@ ADD_PACKAGES+=" wslu"
 fi
 
 # ASDF
-if [ -n "${ENABLE_ASDF}" ]; then
-ADD_PACKAGES+=$(echo " curl git")
-fi
+#if [ -n "${ENABLE_ASDF}" ]; then
+#ADD_PACKAGES+=$(echo " curl git")
+#fi
 
 # Python3
 if [ -n "${ENABLE_PYTHON}" ]; then
@@ -162,25 +162,6 @@ fi
 ################################################################################
 # Install *env
 ################################################################################
-# # ADFS - like anyenv
-# if [ -n "${ENABLE_ASDF}" ]; then
-#   echo "Install asdf"
-#   if [ ! -e ~/.asdf ]; then
-#     git clone https://github.com/asdf-vm/asdf.git ~/.asdf \
-#       --branch v${INSTALL_ASDF_VERSION}
-#   fi
-#   if [ -z "$ASDF_DIR" ] ; then
-#     source "$HOME/.asdf/asdf.sh"
-#     source "$HOME/.asdf/completions/asdf.bash"
-
-#   fi
-#   asdf plugin add python
-#   asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
-#   asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-#   asdf plugin add rust https://github.com/code-lever/asdf-rust.git
-# fi
-
-
 # Rust
 if [ -n "${ENABLE_RUST}" ]; then
   echo "Install Rust"
@@ -203,150 +184,28 @@ if [ -n "${ENABLE_RUST}" ]; then
   fi
 fi
 
-# Python - Pyenv
-if [ -n "${ENABLE_PYTHON}" ]; then
-  echo "Install pyenv"
-  if [ ! -e ~/.pyenv ]; then
-    git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-  fi
-  if [ ! -e ~/.pyenv/plugins/pyenv-virtualenv ]; then
-    git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
-  fi
-  if [ ! -e ~/.pyenv/plugins/pyenv-update ]; then
-    git clone https://github.com/pyenv/pyenv-update.git ~/.pyenv/plugins/pyenv-update
-  fi
-
-  if [ -z "$PYENV_SHELL" ] ; then
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    if command -v pyenv 1>/dev/null 2>&1; then
-      eval "$(pyenv init -)"
-      eval "$(pyenv virtualenv-init -)"
-    fi
-  fi
-  pyenv install --skip-existing ${INSTALL_PYTHON_VERSION}
-  pyenv global ${INSTALL_PYTHON_VERSION}
-  pyenv rehash
-
-  pip install virtualenv
-  # install pipx (each cli-command's environment manager)
-  if [ ! -e ~/.local/bin/pipx ]; then
-    python3 -m pip install --user pipx
-    python3 -m pipx ensurepath
-  fi
-
-  # install Poetry
-  if [ ! -e ~/.local/bin/poetry ]; then
-    # curl -sSL https://install.python-poetry.org | python3 -
-    pipx install poetry
-  fi
-  if [ ! -e ~/.bash_completion.d/poetry.bash ]; then
-    poetry completions bash > ~/.bash_completion.d/poetry.bash
-    chmod +x ~/.bash_completion.d/poetry.bash
-  fi
-fi
-
-# Ruby - rbenv
-if [ -n "${ENABLE_RUBY}" ]; then
-  echo "Install rbenv"
-  if [ ! -e ~/.rbenv ]; then
-    git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-  fi
-  if [ ! -e ~/.rbenv/plugins/rbenv-update ]; then
-    git clone https://github.com/rkh/rbenv-update.git ~/.rbenv/plugins/rbenv-update
-  fi
-  if [ ! -e ~/.rbenv/plugins/ruby-build ]; then
-    git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-  fi
-  if [ ! -e ~/.rbenv/plugins/rbenv-default-gems ]; then
-    git clone https://github.com/rbenv/rbenv-default-gems.git ~/.rbenv/plugins/rbenv-default-gems
-  fi
-  link_file_force "ruby/default-gems" "${HOME}/.rbenv/default-gems"
-
-  if [ -z "$RBENV_SHELL" ]; then
-    export PATH="$HOME/.rbenv/bin:$PATH"
-    if command -v rbenv 1>/dev/null 2>&1; then
-      eval "$(rbenv init -)"
-    fi
-  fi
-  rbenv install --skip-existing $INSTALL_RUBY_VERSION
-  rbenv global $INSTALL_RUBY_VERSION
-  rbenv rehash
-fi
-
-# Node
-if [ -n "${ENABLE_NODE}" ]; then
-  echo "Install nodenv"
-  if [ ! -e ~/.nodenv ]; then
-    git clone https://github.com/nodenv/nodenv.git ~/.nodenv
-    # to speed up
-    pushd ~/.nodenv
-      src/configure && make -C src
-    popd
-  fi
-  if [ ! -e ~/.nodenv/plugins/nodenv-update ]; then
-    git clone https://github.com/nodenv/nodenv-update.git ~/.nodenv/plugins/nodenv-update
-  fi
-  if [ ! -e ~/.nodenv/plugins/node-build ]; then
-    # git clone https://github.com/nodenv/node-build.git "$(nodenv root)"/plugins/node-build
-    git clone https://github.com/nodenv/node-build.git ~/.nodenv/plugins/node-build
-  fi
-
-  if [ -z "$NODENV_SHELL" ]; then
-    export PATH="$HOME/.nodenv/bin:$PATH"
-    if command -v nodenv 1>/dev/null 2>&1; then
-      eval "$(nodenv init -)"
-    fi
-  fi
-  nodenv install --skip-existing $INSTALL_NODE_VERSION
-  nodenv global $INSTALL_NODE_VERSION
-  npm install --global yarn
-  npm install --global npm-check-updates
-  nodenv rehash
-fi
 
 
 # Go
-if [ -n "${ENABLE_GO}" ]; then
-  echo "Install Go"
-  if [ ! -e ~/.goenv ]; then
-    git clone https://github.com/syndbg/goenv.git ~/.goenv
-  fi
-
-  if [ -z "$GOENV_ROOT" ]; then
-    export GOENV_ROOT="$HOME/.goenv"
-    export PATH="$GOENV_ROOT/bin:$PATH"
-    if command -v goenv 1>/dev/null 2>&1; then
-      eval "$(goenv init -)"
-    fi
-    export PATH="$GOROOT/bin:$PATH"
-    export PATH="$PATH:$GOPATH/bin"
-  fi
-  goenv install --skip-existing $INSTALL_GO_VERSION
-  goenv global $INSTALL_GO_VERSION
-  goenv rehash
-fi
-
-
-# echo "Install anyenv"
-# if [ ! -e ~/.anyenv ]; then
-#   git clone https://github.com/anyenv/anyenv ~/.anyenv
-# fi
-# export PATH="$HOME/.anyenv/bin:$PATH"
-# eval "$(anyenv init -)"
-# if [ ! -e ~/.config/anyenv/anyenv-install ]; then
-#   anyenv install --force-init
-# else
-#   anyenv install --update
-# fi
-
-# if [ -n "${ENABLE_PYTHON}" ]; then
-#   anyenv install pyenv
-# fi
-# if [ -n "${ENABLE_RUBY}" ]; then
-#   anyenv install rbenv
-# fi
-
+#if [ -n "${ENABLE_GO}" ]; then
+#  echo "Install Go"
+#  if [ ! -e ~/.goenv ]; then
+#    git clone https://github.com/syndbg/goenv.git ~/.goenv
+#  fi
+#
+#  if [ -z "$GOENV_ROOT" ]; then
+#    export GOENV_ROOT="$HOME/.goenv"
+#    export PATH="$GOENV_ROOT/bin:$PATH"
+#    if command -v goenv 1>/dev/null 2>&1; then
+#      eval "$(goenv init -)"
+#    fi
+#    export PATH="$GOROOT/bin:$PATH"
+#    export PATH="$PATH:$GOPATH/bin"
+#  fi
+#  goenv install --skip-existing $INSTALL_GO_VERSION
+#  goenv global $INSTALL_GO_VERSION
+#  goenv rehash
+#fi
 
 # Terraform
 if [ -n "${ENABLE_TERRAFORM}" ]; then
