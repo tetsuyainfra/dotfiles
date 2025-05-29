@@ -140,18 +140,7 @@ if [[ "$(uname -r)" == *microsoft* ]]; then
     eval $($wsl2_ssh_agent_bin)
   fi
 fi
-#if [[ "$(uname -r)" == *microsoft* ]]; then
-#  export SSH_AUTH_SOCK=$HOME/.ssh/agent.sock
-#  ss -a | grep -q $SSH_AUTH_SOCK
-#  if [ $? -ne 0 ]; then
-#  	rm -f $SSH_AUTH_SOCK
-#  	( setsid socat UNIX-LISTEN:$SSH_AUTH_SOCK,fork EXEC:"/mnt/d/opt/bin/npiperelay.exe -ei -s //./pipe/openssh-ssh-agent",nofork & ) >/dev/null 2>&1
-#  fi
-#elif [ "${MSYSTEM}" != "" ]; then
-#  export SSH_AUTH_SOCK=$HOME/.ssh/my-agent.sock
-#fi
 
-#
 ## GPGの設定
 #export GPG_AGENT_SOCK=$HOME/.gnupg/S.gpg-agent
 #ss -a | grep -q $GPG_AGENT_SOCK
@@ -171,8 +160,7 @@ fi
 #  fi
 #  unset wsl2_ssh_pageant_bin
 #fi
-#
-#
+
 if [[ "$(uname -r)" == *microsoft* ]]; then
 export GPG_AGENT_SOCK="$HOME/.gnupg/S.gpg-agent"
   if ! ss -a | grep -q "$GPG_AGENT_SOCK"; then
@@ -200,14 +188,6 @@ fi
 #else
 #    echo "no ssh-agent"
 #fi
-
-
-# Use X Server
-# In WSL2
-# if [[ "$(uname -r)" == *microsoft* ]]; then
-#   export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
-#   export LIBGL_ALWAYS_INDIRECT=1
-# fi
 
 # bash_local
 if [ -f ~/.bash_local ]; then
