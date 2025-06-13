@@ -78,6 +78,10 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias cls='stty sane'
+# Doesn't work so disable it
+#if type devcontainer >/dev/null 2>&1; then
+#  alias devcode='devcontainer open'
+#fi
 
 
 ################################################################################
