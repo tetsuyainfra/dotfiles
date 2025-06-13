@@ -175,8 +175,12 @@ if [ -n "${ENABLE_RUST}" ]; then
     rustup +nightly component add rust-analyzer
     cargo install git-cliff
     # pretty print rust source (using rustc nightly build)
+    # cargo-list is update installed command by cargo
+    cargo install cargo-list
+    #
     cargo install cargo-update
     cargo install cargo-outdated
+    # expand source code
     cargo install cargo-expand
     cargo install cargo-watch
     cargo install cross
