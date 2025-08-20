@@ -21,6 +21,22 @@ if [ ! -e "${DOTTER_LOCAL_FILE}" ] ; then
 cp ${DOTTER_LOCAL_SKEL} ${DOTTER_LOCAL_FILE}
 fi
 
+if [ ! -e ${DOT_DIR}/local_bin/mise ]; then
+  checksum="fd7ad2e877900134dc8e5317a5081f595a77837fc31cd22c905eade95bcafd55"
+  curl -L --output ${DOT_DIR}/local_bin/mise.tar.gz \
+    https://github.com/jdx/mise/releases/download/v2025.8.13/mise-v2025.8.13-linux-x64.tar.gz
+  pushd local_bin
+  if echo "${checksum} mise.tar.gz" | sha256sum -c > /dev/null ; then
+    tar zxfv mise.tar.gz --strip-components=2 mise/bin/mise
+    chmod +x mise
+  else
+    echo "Download mise failed"
+  fi
+  rm -f mise.tar.gz
+  popd
+fi
+
+exit 0
 
 ## dotter
 pushd ${DOT_DIR}
