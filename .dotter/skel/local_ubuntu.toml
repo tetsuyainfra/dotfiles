@@ -4,7 +4,7 @@
 #
 
 includes = [".dotter/include/ubuntu.toml"]
-packages = ["default", "bash", "vim", "tmux", "ruby", "direnv", "bin", "ssh"]
+packages = ["default", "bash", "vim", "tmux", "ruby", "direnv", "bin", "local_bin", "ssh"]
 
 [files]
 "home-dir/inputrc" = "~/.inputrc"
