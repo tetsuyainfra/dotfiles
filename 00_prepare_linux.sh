@@ -36,13 +36,20 @@ if [ ! -e ${DOT_DIR}/local_bin/mise ]; then
   popd
 fi
 
-exit 0
-
 ## dotter
 pushd ${DOT_DIR}
 
+set +e
 ./dotter
 
+if [ "$?" -ne 0 ]; then
+  set +x
+  echo "dotter failed"
+  echo "Please check the output above for errors."
+  echo "if you forget to set git_username, email. please write this to ${DOTTER_LOCAL_FILE}"
+  exit 1
+fi
+set -e
 popd
 
 ## WSL2 support ssh
@@ -54,9 +61,17 @@ popd
 #  ln -s $windows_destination $linux_destination
 #fi
 if [ ${ISWSL} -eq 2 ]; then
+  WSL_SSH_AGENT_VER="v0.9.6"
+  WSL_SSH_AGENT_SHA256="0d080edabe300ef94f858f1a937188eccd96115e875fb22da3c54479cbd57207"
   wsl2_ssh_agent_bin="$HOME/.ssh/wsl2-ssh-agent"
   if [ ! -f "${wsl2_ssh_agent_bin}" ]; then
-    curl -L -o ${wsl2_ssh_agent_bin} https://github.com/mame/wsl2-ssh-agent/releases/latest/download/wsl2-ssh-agent
+    curl -L -o ${wsl2_ssh_agent_bin} "https://github.com/mame/wsl2-ssh-agent/releases/download/${WSL_SSH_AGENT_VER}/wsl2-ssh-agent"
+    sha256sum -c <<< "${WSL_SSH_AGENT_SHA256}  ${wsl2_ssh_agent_bin}"
+    if [ $? -ne 0 ]; then
+      echo "Checksum verification failed for ${wsl2_ssh_agent_bin}"
+      rm -f ${wsl2_ssh_agent_bin}
+      exit 1
+    fi
     chmod 755 ${wsl2_ssh_agent_bin}
   fi
 fi
