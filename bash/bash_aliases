@@ -212,3 +212,11 @@ if [ -e $HOME/.bash_completion.d ]; then
 fi
 
 
+################################################################################
+# WSL2 extensions
+################################################################################
+if [ -n "$WSL_DISTRO_NAME" ]; then
+  if ! ( command -v explorer.exe > /dev/null 2>&1 ) ; then
+    alias explorer="/mnt/c/Windows/explorer.exe"
+  fi
+fi
