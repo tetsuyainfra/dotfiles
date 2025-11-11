@@ -107,6 +107,12 @@ fi
 # mise(like anyenv)
 if [ -e $HOME/.local/bin/mise ]; then
   eval "$(~/.local/bin/mise activate bash)"
+  # bash_completion
+  have_usage_cli=$(mise list | grep -e ^usage | wc -l)
+  if [ $have_usage_cli -eq 0 ]; then
+    mise use -g usage
+  fi
+  eval "$(mise completion bash --include-bash-completion-lib)"
 fi
 
 # direnv
@@ -211,6 +217,10 @@ if [ -e $HOME/.bash_completion.d ]; then
   $nullglob_status
 fi
 
+if  command -v kopia > /dev/null 2>&1  ; then
+   eval "$(kopia --completion-script-bash)"
+fi
+
 
 ################################################################################
 # WSL2 extensions
@@ -218,5 +228,8 @@ fi
 if [ -n "$WSL_DISTRO_NAME" ]; then
   if ! ( command -v explorer.exe > /dev/null 2>&1 ) ; then
     alias explorer="/mnt/c/Windows/explorer.exe"
+  fi
+  if ! ( command -v code > /dev/null 2>&1 ) ; then
+    alias code="/mnt/c/Users/tetsuyadmin/AppData/Local/Programs/Microsoft\ VS\ Code/bin/code"
   fi
 fi
