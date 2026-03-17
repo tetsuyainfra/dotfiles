@@ -125,6 +125,11 @@ if type yarn >/dev/null 2>&1; then
 	export PATH="$HOME/.yarn/bin:$PATH"
 fi
 
+# dotnet
+if [ -e $HOME/.dotnet/dotnet ]; then
+  export PATH="$HOME/.dotnet:$PATH"
+fi
+
 # editor
 if command -v vim 1>/dev/null 2>&1; then
   export EDITOR=vim
