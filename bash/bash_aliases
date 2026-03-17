@@ -231,10 +231,23 @@ fi
 # WSL2 extensions
 ################################################################################
 if [ -n "$WSL_DISTRO_NAME" ]; then
+  export WIN_USER=$(/mnt/c/Windows/System32/cmd.exe /c echo %USERNAME% 2> /dev/null | tr -d '\r')
+  export WIN_HOME=$(wslpath "$(/mnt/c/Windows/System32/cmd.exe /c echo %USERPROFILE% 2> /dev/null | tr -d '\r')" )
+
   if ! ( command -v explorer.exe > /dev/null 2>&1 ) ; then
     alias explorer="/mnt/c/Windows/explorer.exe"
   fi
+  # WindowsTerminal
+  # Windows上の[設定]→[アプリ]→[アプリの詳細設定]→[アプリ実行エイリアスの管理]で
+  # WindowsTerminalのアプリ実行エイリアスを有効にする
+  # 無い場合、C:\Users\%USERNAME%\AppData\Local\Microsoft\WindowsApps\wt.exe が存在するか確認する
+  if ! ( command -v wt > /dev/null 2>&1 ) ; then
+    alias wt="$WIN_HOME/AppData/Local/Microsoft/WindowsApps/wt.exe"
+    # 新しいタブでカレントディレクトリを開く
+    alias wt-nt="wt -w 0 new-tab -d ."
+  fi
+
   if ! ( command -v code > /dev/null 2>&1 ) ; then
-    alias code="/mnt/c/Users/tetsuyadmin/AppData/Local/Programs/Microsoft\ VS\ Code/bin/code"
+    alias code="$WIN_HOME/AppData/Local/Programs/Microsoft\ VS\ Code/bin/code"
   fi
 fi
