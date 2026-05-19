@@ -61,8 +61,8 @@ popd
 #  ln -s $windows_destination $linux_destination
 #fi
 if [ ${ISWSL} -eq 2 ]; then
-  WSL_SSH_AGENT_VER="v0.9.6"
-  WSL_SSH_AGENT_SHA256="0d080edabe300ef94f858f1a937188eccd96115e875fb22da3c54479cbd57207"
+  WSL_SSH_AGENT_VER="v0.9.7"
+  WSL_SSH_AGENT_SHA256="281c64f6079598de1a455292d533f3ae21837980a3d3012074bc14ad695325d8"
   wsl2_ssh_agent_bin="$HOME/.ssh/wsl2-ssh-agent"
   if [ ! -f "${wsl2_ssh_agent_bin}" ]; then
     curl -L -o ${wsl2_ssh_agent_bin} "https://github.com/mame/wsl2-ssh-agent/releases/download/${WSL_SSH_AGENT_VER}/wsl2-ssh-agent"
