@@ -4,12 +4,12 @@
 #
 
 includes = [".dotter/include/ubuntu.toml"]
-packages = ["default", "bash", "vim", "tmux", "ruby", "direnv", "bin", "local_bin", "ssh"]
+packages = ["default", "bash", "vim", "tmux", "ruby", "direnv", "bin", "local_bin"]
 
 [files]
 "home-dir/inputrc" = "~/.inputrc"
 
 [variables]
-git_username =
-email =
+git_username = CHANGE_HERE
+email = CHANGE_HERE
 podman_port = 5000
