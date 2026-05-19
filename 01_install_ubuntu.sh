@@ -142,21 +142,21 @@ sudo apt install -y $ADD_PACKAGES
 ################################################################################
 # Install NixOS(package manager)
 ################################################################################
-if [ -n "${ENABLE_NIXOS}" ]; then
-  # WSL2の場合、SingleUserModeでインストールする必要がある
-  if [ ! -e /nix ] ; then
-    sh <(curl -L https://nixos.org/nix/install) --no-daemon --no-modify-profile
-  fi
+# if [ -n "${ENABLE_NIXOS}" ]; then
+#   # WSL2の場合、SingleUserModeでインストールする必要がある
+#   if [ ! -e /nix ] ; then
+#     sh <(curl -L https://nixos.org/nix/install) --no-daemon --no-modify-profile
+#   fi
 
-  if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
-    echo Enable Nix OS temporaly
-    . $HOME/.nix-profile/etc/profile.d/nix.sh
+#   if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
+#     echo Enable Nix OS temporaly
+#     . $HOME/.nix-profile/etc/profile.d/nix.sh
 
-    # for github action's Debug
-    echo "Add Packages via nix-env"
-    nix-env -iA nixpkgs.act
-  fi
-fi
+#     # for github action's Debug
+#     echo "Add Packages via nix-env"
+#     nix-env -iA nixpkgs.act
+#   fi
+# fi
 
 
 ################################################################################
@@ -213,8 +213,8 @@ fi
 #fi
 
 # Terraform
-if [ -n "${ENABLE_TERRAFORM}" ]; then
-  wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-  echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-  sudo apt update && sudo apt install terraform
-fi
+# if [ -n "${ENABLE_TERRAFORM}" ]; then
+#   wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+#   echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+#   sudo apt update && sudo apt install terraform
+# fi
