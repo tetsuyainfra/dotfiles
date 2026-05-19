@@ -171,7 +171,7 @@ if [ -n "${ENABLE_RUST}" ]; then
 
   if [ -e "$HOME/.cargo/env" ]; then
     source $HOME/.cargo/env
-    rustup component add rust-analyzer rls
+    rustup component add rust-analyzer
     rustup +nightly component add rust-analyzer
     cargo install git-cliff
     # pretty print rust source (using rustc nightly build)
